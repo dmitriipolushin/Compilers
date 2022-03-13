@@ -68,9 +68,6 @@ scan with {:
 
 /* ************** NON-TERMINAL SYMBOLS *************** */
 
-/*
- * Neterminalni simboli su navedeni po redosledu pojavljivanja na desnoj strani smena.
- */
 nonterminal Program;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgramName;

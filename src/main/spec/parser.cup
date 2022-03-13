@@ -1,0 +1,126 @@
+
+package askov.schoolprojects.compilerconstruction.mjcompiler;
+
+import java_cup.runtime.*;
+import askov.schoolprojects.compilerconstruction.mjcompiler.ast.*;
+import org.apache.log4j.*;
+import askov.schoolprojects.compilerconstruction.mjcompiler.loggers.SyntaxErrorMJLogger;
+
+parser code {:
+
+	private boolean lexicalErrorDetected;
+
+	private boolean syntaxErrorDetected;
+	private boolean fatalSyntaxErrorDetected;
+
+	public boolean lexicalErrorDetected() {
+		return lexicalErrorDetected;
+	}
+
+    public boolean syntaxErrorDetected() {
+    	return syntaxErrorDetected;
+    }
+
+    public boolean fatalSyntaxErrorDetected() {
+    	return fatalSyntaxErrorDetected;
+    }
+
+	SyntaxErrorMJLogger syntaxErrorMJLogger = new SyntaxErrorMJLogger();
+
+	@Override
+	public void syntax_error(Symbol cur_token) {
+	    report_error(null, cur_token);
+	}
+
+	@Override
+	public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
+		syntaxErrorMJLogger.log(null, cur_token.left, null, SyntaxErrorMJLogger.SyntaxErrorKind.FATAL_ERROR);
+	    report_fatal_error(null, null);
+	}
+
+	@Override
+	public void report_fatal_error(String message, Object info) throws java.lang.Exception {
+		fatalSyntaxErrorDetected = true;
+		done_parsing();
+	}
+
+	@Override
+	public void report_error(String message, Object info) {
+		syntaxErrorDetected = true;
+	}
+
+:}
+
+init with {:
+	lexicalErrorDetected = syntaxErrorDetected = false;
+:}
+
+scan with {:
+	Scanner scanner = getScanner();
+	Symbol symbol = scanner.next_token();
+	if(symbol.sym == sym.ERROR) {
+		lexicalErrorDetected = true;
+		return scan();
+	} else {
+		return symbol;
+	}
+:}
+
+/* *************** TERMINAL SYMBOLS *************** */
+terminal PROGRAM;
+terminal LBRACE;
+terminal RBRACE;
+terminal IDENT;
+terminal EXTENDS;
+terminal THIS;
+terminal LPAREN;
+terminal RPAREN;
+
+/* *************** NON-TERMINAL SYMBOLS *************** */
+nonterminal Program;
+
+nonterminal Condition;  ???
+
+
+/* *************** PRODUCTIONS *************** */
+
+Program               ::= (Program) PROGRAM ProgramName ClassList LBRACE ProgramEnd;
+
+ProgramName           ::= (ProgramName) IDENT:ident;
+
+ClassList             ::= (NonEmptyClassList) ClassList Class
+                      |  (EmptyClassList) /* epsilon */;
+
+Class                 ::= (Class) CLASS CName CParent LBRACE CBody RBRACE;
+
+CName                 ::= (CName) IDENT:ident;
+
+CParent               ::= (ChildClass) EXTENDS CName
+                      | (ParentClass) /* epsilon */;
+
+CBody                 ::= (CBody) CBody CElement
+                      | (CBodyEmpty) /* epsilon */;
+
+CElement              ::= (CElVar) Variable
+                      | (CElConstr) Constructor
+                      | (CElMethod) Method;
+
+Constructor           ::= (Constructor) THIS LPAREN ParamsList RPAREN LBRACE Block RBRACE;
+
+ParamsList            ::= (ParamsListNonEmpty) LPAREN Params RPAREN
+                      | (ParamsListEmpty) /* epsilon */;
+
+Params                ::= (Params) Parameter COMMA Params
+                      | Parameter;
+
+Block                 ::= (BlockNonEmpty) Statement Block
+                      | (BlockEmpty) /* epsilon */;
+
+Statement             ::= (IfThenStatement) IF LPAREN Condition RPAREN LBRACE Statement RBRACE
+                      | 
+
+Variable
+
+Constructor
+
+Method
