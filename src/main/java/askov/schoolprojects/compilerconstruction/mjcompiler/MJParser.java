@@ -561,7 +561,8 @@ class CUP$MJParser$actions {
 		 RESULT=new ProgramEnd(dummy); RESULT.setLine(dummyleft); 
               CUP$MJParser$result = new java_cup.runtime.Symbol(5/*ProgramEnd*/, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).left, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).right, RESULT);
             }
-          return CUP$MJParser$result;
+            System.out.println(CUP$MJParser$result);
+            return CUP$MJParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 128: // MethodEnd ::= RBRACE 

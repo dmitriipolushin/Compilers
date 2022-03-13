@@ -41,10 +41,8 @@ Identifier = [a-zA-Z][a-zA-Z0-9_]*
 %%
 
 <YYINITIAL> {
-	// Whitespace characters (Beline)
 	{Whitespace}           { /* ignore */ }
 	
-	// Keywords (Ključne reci)
 	"program"              { return newSymbol(sym.PROGRAM); }
 	"break"                { return newSymbol(sym.BREAK); }
 	"class"                { return newSymbol(sym.CLASS); }
@@ -68,8 +66,6 @@ Identifier = [a-zA-Z][a-zA-Z0-9_]*
 
 
 	
-	// Operators (Operatori)
-	// Arithmetic (Aritmetički)
 	"plus"                    { return newSymbol(sym.PLUS); }
 	"minus"                    { return newSymbol(sym.MINUS); }
 	"times"                    { return newSymbol(sym.TIMES); }
@@ -77,27 +73,21 @@ Identifier = [a-zA-Z][a-zA-Z0-9_]*
 //	"%"                    { return newSymbol(sym.MOD); }
 //	"++"                   { return newSymbol(sym.INCR); }
 //	"--"                   { return newSymbol(sym.DECR); }
-//	// Relational (Relacioni)
 //	"=="                   { return newSymbol(sym.EQ); }
 //	"!="                   { return newSymbol(sym.NEQ); }
 //	"<"                    { return newSymbol(sym.LT); }
 //	"<="                   { return newSymbol(sym.LEQ); }
 //	">"                    { return newSymbol(sym.GT); }
 //	">="                   { return newSymbol(sym.GEQ); }
-	// Logical (Logički)
 //	"&&"                   { return newSymbol(sym.AND); }
 //	"or"                   { return newSymbol(sym.OR); }
 
-	// Assignment (Dodela vrednosti)
-	// точка нужна??
 	"="                    { return newSymbol(sym.ASSIGN); }
 	
-	// Separators (Separatori)
 	";"                    { return newSymbol(sym.SEMI); }
 	","                    { return newSymbol(sym.COMMA); }
 	"."                    { return newSymbol(sym.DOT); }
 	
-	// Delimiters (Delimiteri)
 	"("                    { return newSymbol(sym.LPAREN); } // Parentheses (Oble (male) zagrade).
 	")"                    { return newSymbol(sym.RPAREN); }
 	"["                    { return newSymbol(sym.LBRACKET); } // (Square) Brackets (Uglaste (srednje) zagrade).
@@ -105,18 +95,13 @@ Identifier = [a-zA-Z][a-zA-Z0-9_]*
 	"{"                    { return newSymbol(sym.LBRACE); } // (Curly) Braces (Vitičaste (velike) zagrade).
 	"}"                    { return newSymbol(sym.RBRACE); }
 	
-	// Comments (Komentari)
 	{Comment}              { /* ignore */ }
 	
-	// Literals (Literali)
 	{DecIntegerLiteral}    { return newSymbol(sym.INT, new Integer(yytext())); }
 	{BooleanLiteral}       { return newSymbol(sym.BOOL, Boolean.valueOf(yytext())); }  
 	{PrintableCharLiteral} { return newSymbol(sym.CHAR, new Character(yytext().charAt(1))); }
 	
-	// Identifiers (Identifikatori)
 	{Identifier}           { return newSymbol(sym.IDENT, yytext()); }
 	
-	// Lexical error (Leksička greška)
-	// Svi tekst-editori numerisu linije počev od broja 1. Stoga je na yyline dodat broj 1.
 	[^]                    { lexicalErrorMJLogger.log(yytext(), yyline + 1, yycolumn + 1); return newSymbol(sym.ERROR); }
 }
