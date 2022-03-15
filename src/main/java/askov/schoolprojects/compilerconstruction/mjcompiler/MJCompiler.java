@@ -38,10 +38,7 @@ import askov.schoolprojects.compilerconstruction.mjcompiler.vmt.VMTCreator;
 import askov.schoolprojects.compilerconstruction.mjcompiler.vmt.VMTStartAddressGenerator;
 import rs.etf.pp1.mj.runtime.Code;
 
-/**
- *
- * @author Danijel Askov
- */
+
 public class MJCompiler {
 
     static {

@@ -34,16 +34,16 @@ public class MJCompilerTest {
 
     @Test
     public void simpleCalculatorTest() throws Exception {
-        System.out.println("\n\n1) Running MicroJava Compiler. Input file: \"" + PATH_PREFIX + "simple_calculator.mj\"...\n\n");
+        System.out.println("\n\n1) Running MicroJava Compiler. Input file: \"" + PATH_PREFIX + "test.mj\"...\n\n");
         // Firstly, we run MicroJava Compiler
-        MJCompiler.main(new String[]{PATH_PREFIX + "simple_calculator.mj", PATH_PREFIX + "simple_calculator.obj"});
+        MJCompiler.main(new String[]{PATH_PREFIX + "test.mj", PATH_PREFIX + "test.obj"});
 
-        System.out.println("\n\n2) Running MicroJava Virtual Machine. Input file: \"" + PATH_PREFIX + "simple_calculator.obj\"...\n\n");
+        System.out.println("\n\n2) Running MicroJava Virtual Machine. Input file: \"" + PATH_PREFIX + "test.obj\"...\n\n");
         final InputStream originalInputStream = System.in;
         final FileInputStream fileInputStream = new FileInputStream(new File(PATH_PREFIX + "input_stream.txt"));
         System.setIn(fileInputStream);
         // Secondly, we start MicroJava Virtual Machine
-        Run.main(new String[]{PATH_PREFIX + "simple_calculator.obj"});
+        Run.main(new String[]{PATH_PREFIX + "test.obj"});
         System.setIn(originalInputStream);
     }
 

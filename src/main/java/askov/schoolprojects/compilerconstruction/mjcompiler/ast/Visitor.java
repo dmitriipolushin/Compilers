@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 9/0/2020 16:10:51
+// 14/2/2022 18:0:6
 
 
 package askov.schoolprojects.compilerconstruction.mjcompiler.ast;
@@ -46,32 +46,19 @@ public interface Visitor {
     public void visit(FormPars FormPars);
     public void visit(LocalVarDeclList LocalVarDeclList);
     public void visit(ProgramEnd ProgramEnd);
+    public void visit(Constructor Constructor);
     public void visit(MethodEnd MethodEnd);
     public void visit(DoWhileStatementStart DoWhileStatementStart);
     public void visit(Else Else);
     public void visit(ConditionEnd ConditionEnd);
-    public void visit(LeqRelop LeqRelop);
-    public void visit(LtRelop LtRelop);
-    public void visit(GeqRelop GeqRelop);
-    public void visit(GtRelop GtRelop);
-    public void visit(NeqRelop NeqRelop);
-    public void visit(EqRelop EqRelop);
     public void visit(RelOpCondFactor RelOpCondFactor);
     public void visit(ExprCondFactor ExprCondFactor);
-    public void visit(FactorCondTerm FactorCondTerm);
-    public void visit(AndCondTerm AndCondTerm);
-    public void visit(TermCondition TermCondition);
-    public void visit(OrCondition OrCondition);
     public void visit(ErrorCondition ErrorCondition);
     public void visit(CorrectCondition CorrectCondition);
     public void visit(ConditionStart ConditionStart);
     public void visit(ErrorExpr ErrorExpr);
     public void visit(CorrectExpr CorrectExpr);
-    public void visit(MinusAddop MinusAddop);
-    public void visit(PlusAddop PlusAddop);
-    public void visit(ModMulop ModMulop);
     public void visit(DivMulop DivMulop);
-    public void visit(TimesMulop TimesMulop);
     public void visit(ActParsEnd ActParsEnd);
     public void visit(SingleExprExprList SingleExprExprList);
     public void visit(MultipleExprExprList MultipleExprExprList);
@@ -89,7 +76,6 @@ public interface Visitor {
     public void visit(MulopTerm MulopTerm);
     public void visit(FactorTerm FactorTerm);
     public void visit(AddopExpr AddopExpr);
-    public void visit(MinusTermExpr MinusTermExpr);
     public void visit(TermExpr TermExpr);
     public void visit(ArrayElemAcessDesignatorLBracket ArrayElemAcessDesignatorLBracket);
     public void visit(MemberAccessDesignatorStart MemberAccessDesignatorStart);
@@ -109,8 +95,6 @@ public interface Visitor {
     public void visit(DoWhileStatement DoWhileStatement);
     public void visit(IfThenElseStatement IfThenElseStatement);
     public void visit(IfThenStatement IfThenStatement);
-    public void visit(DecrDesignatorStatement DecrDesignatorStatement);
-    public void visit(IncrDesignatorStatement IncrDesignatorStatement);
     public void visit(MethodCallDesignatorStatement MethodCallDesignatorStatement);
     public void visit(AssignmentDesignatorStatement AssignmentDesignatorStatement);
     public void visit(EmptyStatementList EmptyStatementList);
