@@ -12,7 +12,7 @@ public class LeafNodeVisitor {
     public List<InheritanceTreeNode> leafNodes = new ArrayList<>();
 
     public void visit(InheritanceTreeNode node) {
-        if (!node.hasChildren()) {
+        if (node.childrenNum() == 0) {
             leafNodes.add(node);
         }
     }

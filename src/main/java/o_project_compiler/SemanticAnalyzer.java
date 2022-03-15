@@ -87,8 +87,8 @@ import o_project_compiler.ast.MemberAccessDesignatorStart;
 import o_project_compiler.ast.ReturnNothingStatement;
 import java.util.Stack;
 
-import o_project_compiler.exceptions.WrongObjKindException;
-import o_project_compiler.exceptions.WrongStructKindException;
+import o_project_compiler.exceptions.WrongObjectException;
+import o_project_compiler.exceptions.WrongStructureException;
 import o_project_compiler.inheritancetree.InheritanceTree;
 import o_project_compiler.loggers.SemanticErrorLogger;
 import o_project_compiler.loggers.SymbolUsageLogger;
@@ -243,7 +243,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                         if (new ClassMethodSignature(method, Tab.noType).isInvokableBy(classMethodSignature)) {
                             return method;
                         }
-                    } catch (WrongObjKindException e) {
+                    } catch (WrongObjectException e) {
                         e.printStackTrace();
                     }
                 }
@@ -264,7 +264,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                     detectSemanticError(null, methodDecl, SemanticErrorKind.INCOMPATIBLE_RETURN_TYPE,
                             new ClassMethodSignature(overriddenMethod, clss));
                 }
-            } catch (WrongObjKindException e) {
+            } catch (WrongObjectException e) {
                 e.printStackTrace();
             }
             clss = clss.getElemType();
@@ -514,8 +514,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             if (superclassType.getKind() == Struct.Class && superclassType != currentClassObj.getType()) {
                 Obj superclassObj = nonVoidSuperclass.getType().obj;
                 try {
-                    InheritanceTree.addNodeForClass(currentClassObj, superclassObj);
-                } catch (WrongObjKindException | WrongStructKindException e) {
+                    InheritanceTree.putTreeNode(currentClassObj, superclassObj);
+                } catch (WrongObjectException | WrongStructureException e) {
                     e.printStackTrace();
                 }
                 currentClassObj.setAdr(superclassObj.getAdr());
@@ -534,8 +534,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         Tab.insert(Obj.Fld, CLASS_ID, Tab.intType);
         currentClassObj.setAdr(1);
         try {
-            InheritanceTree.addNodeForClass(currentClassObj);
-        } catch (WrongObjKindException | WrongStructKindException e) {
+            InheritanceTree.putTreeNode(currentClassObj);
+        } catch (WrongObjectException | WrongStructureException e) {
             e.printStackTrace();
         }
     }
@@ -772,7 +772,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                 } else {
                     methodSignature = new ClassMethodSignature(methodObj, thisParameterObjs.peek().getType());
                 }
-            } catch (WrongObjKindException ignored) {
+            } catch (WrongObjectException ignored) {
             }
             if (methodSignature != null) {
                 if (!methodSignature.isInvokableBy(invokedMethodSignatureGenerator.getMethodSignature())) {
@@ -1141,7 +1141,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                 } else {
                     methodSignature = new ClassMethodSignature(methodObj, thisParameterObjs.peek().getType());
                 }
-            } catch (WrongObjKindException ignored) {
+            } catch (WrongObjectException ignored) {
             }
             if (methodSignature != null) {
                 if (!methodSignature.isInvokableBy(invokedMethodSignatureGenerator.getMethodSignature())) {

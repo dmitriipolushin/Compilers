@@ -4,6 +4,6 @@ package o_project_compiler.exceptions;
 
 
 @SuppressWarnings("serial")
-public class WrongStructKindException extends Exception {
+public class WrongObjectException extends Exception {
 
 }

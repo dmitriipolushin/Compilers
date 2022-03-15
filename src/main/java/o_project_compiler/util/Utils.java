@@ -2,8 +2,8 @@
 
 package o_project_compiler.util;
 
-import o_project_compiler.exceptions.WrongObjKindException;
-import o_project_compiler.exceptions.WrongStructKindException;
+import o_project_compiler.exceptions.WrongObjectException;
+import o_project_compiler.exceptions.WrongStructureException;
 import o_project_compiler.methodsignature.ClassMethodSignature;
 import o_project_compiler.mjsymboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
@@ -15,7 +15,7 @@ public final class Utils {
     private Utils() {
     }
 
-    public static boolean haveSameSignatures(Obj method1, Obj method2) throws WrongObjKindException {
+    public static boolean haveSameSignatures(Obj method1, Obj method2) throws WrongObjectException {
         if (method1 == null || method2 == null) {
             return false;
         }
@@ -23,9 +23,9 @@ public final class Utils {
     }
 
     public static boolean returnTypesAssignmentCompatible(Obj overridingMethod, Obj overriddenMethod)
-            throws WrongObjKindException {
+            throws WrongObjectException {
         if (overridingMethod.getKind() != Obj.Meth || overriddenMethod.getKind() != Obj.Meth) {
-            throw new WrongObjKindException();
+            throw new WrongObjectException();
         }
         return assignableTo(overridingMethod.getType(), overriddenMethod.getType());
     }
@@ -53,7 +53,7 @@ public final class Utils {
         }
     }
 
-    public static String getCompactClassMethodSignature(Obj method) throws WrongObjKindException {
+    public static String getCompactClassMethodSignature(Obj method) throws WrongObjectException {
         return new ClassMethodSignature(method, Tab.noType).getCompactSignature();
     }
 
@@ -83,9 +83,9 @@ public final class Utils {
         return false;
     }
 
-    public static int sizeOfClassInstance(Struct clss) throws WrongStructKindException {
+    public static int sizeOfClassInstance(Struct clss) throws WrongStructureException {
         if (clss.getKind() != Struct.Class) {
-            throw new WrongStructKindException();
+            throw new WrongStructureException();
         }
         int numberOfFields = 0;
         Struct superclass = clss;

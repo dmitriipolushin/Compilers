@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import o_project_compiler.exceptions.WrongObjKindException;
+import o_project_compiler.exceptions.WrongObjectException;
 import o_project_compiler.util.Utils;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
@@ -41,9 +41,9 @@ public abstract class MethodSignature {
         addParameter(parameter.getType());
     }
 
-    public MethodSignature(Obj method, boolean hasThisParameter) throws WrongObjKindException {
+    public MethodSignature(Obj method, boolean hasThisParameter) throws WrongObjectException {
         if (method.getKind() != Obj.Meth) {
-            throw new WrongObjKindException();
+            throw new WrongObjectException();
         }
         this.method = method;
         methodName = method.getName();

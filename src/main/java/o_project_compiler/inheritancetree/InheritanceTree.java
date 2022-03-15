@@ -5,8 +5,8 @@ package o_project_compiler.inheritancetree;
 import java.util.HashMap;
 import java.util.Map;
 
-import o_project_compiler.exceptions.WrongObjKindException;
-import o_project_compiler.exceptions.WrongStructKindException;
+import o_project_compiler.exceptions.WrongObjectException;
+import o_project_compiler.exceptions.WrongStructureException;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
@@ -19,7 +19,7 @@ public class InheritanceTree {
         InheritanceTreeNode root = null;
         try {
             root = new InheritanceTreeNode(new Obj(Obj.Type, "$RootClassNode", new Struct(Struct.Class)), null);
-        } catch (WrongObjKindException | WrongStructKindException e) {
+        } catch (WrongObjectException | WrongStructureException e) {
             e.printStackTrace();
         }
         ROOT_NODE = root;
@@ -27,7 +27,7 @@ public class InheritanceTree {
 
     private static final Map<Obj, InheritanceTreeNode> ObjNodeMap = new HashMap<>();
 
-    public static boolean addNodeForClass(Obj clss) throws WrongObjKindException, WrongStructKindException {
+    public static boolean putTreeNode(Obj clss) throws WrongObjectException, WrongStructureException {
         if (ObjNodeMap.containsKey(clss)) {
             return false;
         }
@@ -37,8 +37,8 @@ public class InheritanceTree {
         }
     }
 
-    public static boolean addNodeForClass(Obj childClass, Obj parentClass)
-            throws WrongObjKindException, WrongStructKindException {
+    public static boolean putTreeNode(Obj childClass, Obj parentClass)
+            throws WrongObjectException, WrongStructureException {
         if (ObjNodeMap.containsKey(childClass) || !ObjNodeMap.containsKey(parentClass)) {
             return false;
         }
@@ -48,17 +48,19 @@ public class InheritanceTree {
         }
     }
 
-    public static InheritanceTreeNode getNode(Obj clss) throws WrongObjKindException, WrongStructKindException {
+    public static InheritanceTreeNode getTreeNode(Obj clss) throws WrongObjectException, WrongStructureException {
         if (clss == null) {
             throw new NullPointerException();
         }
-        if (clss.getKind() != Obj.Type) {
-            throw new WrongObjKindException();
-        }
         if (clss.getType().getKind() != Struct.Class) {
-            throw new WrongStructKindException();
+            throw new WrongStructureException();
         }
-        return ObjNodeMap.get(clss);
+        if (clss.getKind() != Obj.Type) {
+            throw new WrongObjectException();
+        }
+        else {
+            return ObjNodeMap.get(clss);
+        }
     }
 
 }

@@ -51,8 +51,6 @@ public abstract class VisitorAdaptor implements Visitor {
 
     public abstract void visit(IncrDesignatorStatement incrDesignatorStatement);
 
-    public abstract void visit(DecrDesignatorStatement decrDesignatorStatement);
-
     public void visit(DoWhileStatementStart DoWhileStatementStart) { visit(); }
     public void visit(Else Else) { visit(); }
     public void visit(ConditionEnd ConditionEnd) { visit(); }

@@ -2,7 +2,7 @@
 
 package o_project_compiler.vmt;
 
-import o_project_compiler.exceptions.WrongObjKindException;
+import o_project_compiler.exceptions.WrongObjectException;
 import o_project_compiler.inheritancetree.InheritanceTree;
 import o_project_compiler.inheritancetree.InheritanceTreeNode;
 import o_project_compiler.inheritancetree.visitor.InheritanceTreeVisitor;
@@ -15,7 +15,7 @@ public class VMTCreator implements InheritanceTreeVisitor {
     private void updateVMTs(InheritanceTreeNode node, Obj overriddenMethod) {
         try {
             node.getVMT().add(overriddenMethod);
-        } catch (WrongObjKindException e) {
+        } catch (WrongObjectException e) {
             e.printStackTrace();
         }
         for (InheritanceTreeNode child : node.getChildren()) {
@@ -28,7 +28,7 @@ public class VMTCreator implements InheritanceTreeVisitor {
                             childVisited = true;
                             break;
                         }
-                    } catch (WrongObjKindException e) {
+                    } catch (WrongObjectException e) {
                         e.printStackTrace();
                     }
                 }
@@ -57,7 +57,7 @@ public class VMTCreator implements InheritanceTreeVisitor {
                                             break;
                                         }
                                     }
-                                } catch (WrongObjKindException e) {
+                                } catch (WrongObjectException e) {
                                     e.printStackTrace();
                                 }
                             }

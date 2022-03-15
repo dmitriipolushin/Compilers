@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import o_project_compiler.exceptions.WrongObjKindException;
+import o_project_compiler.exceptions.WrongObjectException;
 import o_project_compiler.mjsymboltable.Tab;
 import o_project_compiler.util.Utils;
 import rs.etf.pp1.mj.runtime.Code;
@@ -21,12 +21,12 @@ public class VMT {
     public static final int NAME_ADDR_SEPARATOR = -1;
     public static final int TABLE_TERMINATOR = -2;
 
-    public boolean add(Obj method) throws WrongObjKindException {
+    public boolean add(Obj method) throws WrongObjectException {
         if (method == null) {
             throw new NullPointerException();
         }
         if (method.getKind() != Obj.Meth) {
-            throw new WrongObjKindException();
+            throw new WrongObjectException();
         }
         if (methods.contains(method)) {
             return false;
@@ -55,7 +55,7 @@ public class VMT {
                 String methodSignature;
                 try {
                     methodSignature = Utils.getCompactClassMethodSignature(method);
-                } catch (WrongObjKindException e) {
+                } catch (WrongObjectException e) {
                     methodSignature = null;
                     e.printStackTrace();
                 }
@@ -113,7 +113,7 @@ public class VMT {
                 if (Utils.haveSameSignatures(method, overriddenMethod)) {
                     return true;
                 }
-            } catch (WrongObjKindException e) {
+            } catch (WrongObjectException e) {
                 e.printStackTrace();
             }
         }
@@ -130,7 +130,7 @@ public class VMT {
                 if (Utils.haveSameSignatures(method, overriddenMethod)) {
                     return method;
                 }
-            } catch (WrongObjKindException e) {
+            } catch (WrongObjectException e) {
                 e.printStackTrace();
             }
         }

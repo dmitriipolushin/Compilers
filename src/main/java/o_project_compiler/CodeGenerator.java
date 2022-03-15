@@ -65,8 +65,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import o_project_compiler.exceptions.WrongObjKindException;
-import o_project_compiler.exceptions.WrongStructKindException;
+import o_project_compiler.exceptions.WrongObjectException;
+import o_project_compiler.exceptions.WrongStructureException;
 import o_project_compiler.inheritancetree.InheritanceTree;
 import o_project_compiler.inheritancetree.InheritanceTreeNode;
 import o_project_compiler.mjsymboltable.Tab;
@@ -749,7 +749,7 @@ public class CodeGenerator extends VisitorAdaptor {
                         if (Utils.haveSameSignatures(member, overriddenMethod)) {
                             filteredLeafClasses.add(clss);
                         }
-                    } catch (WrongObjKindException e) {
+                    } catch (WrongObjectException e) {
                         e.printStackTrace();
                     }
                 }
@@ -766,7 +766,7 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.put(Code.pop);
             Code.put(Code.call);
             try {
-                Obj method = InheritanceTree.getNode(clss).getVMT().getSameSignatureMethod(overriddenMethod);
+                Obj method = InheritanceTree.getTreeNode(clss).getVMT().getSameSignatureMethod(overriddenMethod);
                 int addr = method.getAdr();
                 if (addr != 0) {
                     Code.put2(addr - Code.pc + 1);
@@ -781,7 +781,7 @@ public class CodeGenerator extends VisitorAdaptor {
                     }
                     Code.put2(0);
                 }
-            } catch (WrongObjKindException | WrongStructKindException e) {
+            } catch (WrongObjectException | WrongStructureException e) {
                 e.printStackTrace();
             }
             Code.put(Code.jmp);
@@ -797,7 +797,7 @@ public class CodeGenerator extends VisitorAdaptor {
         String methodSignature;
         try {
             methodSignature = Utils.getCompactClassMethodSignature(overriddenMethod);
-        } catch (WrongObjKindException e) {
+        } catch (WrongObjectException e) {
             methodSignature = null;
             e.printStackTrace();
         }
@@ -898,16 +898,16 @@ public class CodeGenerator extends VisitorAdaptor {
             if (!thisParameterObj.equals(rs.etf.pp1.symboltable.Tab.noObj)) {
                 try {
                     InheritanceTreeNode thisParameterTypeNode = InheritanceTree
-                            .getNode((Tab.findObjForClass(thisParameterObj.getType())));
+                            .getTreeNode((Tab.findObjForClass(thisParameterObj.getType())));
                     if (thisParameterTypeNode.getVMT().containsSameSignatureMethod(methodDesignator.obj)
-                            && thisParameterTypeNode.hasChildren()) {
+                            && thisParameterTypeNode.childrenNum() > 0) {
                         methodDesignator.traverseBottomUp(new ThisParameterLoader());
                         generateMethodInvocationCode(methodDesignator.obj);
                     } else {
                         Code.put(Code.call);
                         Code.put2(offset);
                     }
-                } catch (WrongObjKindException | WrongStructKindException e) {
+                } catch (WrongObjectException | WrongStructureException e) {
                     e.printStackTrace();
                 }
             } else {
@@ -1308,12 +1308,12 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.put(Code.new_);
         try {
             Code.put2(Utils.sizeOfClassInstance(newScalarFactor.getType().obj.getType()));
-        } catch (WrongStructKindException e1) {
+        } catch (WrongStructureException e1) {
             e1.printStackTrace();
         }
         if (newScalarFactor.getType().obj.getType().getKind() == Struct.Class) {
             try {
-                if (!InheritanceTree.getNode(newScalarFactor.obj).getVMT().isEmpty()) {
+                if (!InheritanceTree.getTreeNode(newScalarFactor.obj).getVMT().isEmpty()) {
                     Obj constObj = new Obj(Obj.Con, "", rs.etf.pp1.symboltable.Tab.intType, newScalarFactor.getType().obj.getAdr(), 1);
                     Code.put(Code.dup);
                     Code.load(constObj);
@@ -1325,7 +1325,7 @@ public class CodeGenerator extends VisitorAdaptor {
                     Code.put(Code.putfield);
                     Code.put2(1);
                 }
-            } catch (WrongObjKindException | WrongStructKindException e) {
+            } catch (WrongObjectException | WrongStructureException e) {
                 e.printStackTrace();
             }
         }

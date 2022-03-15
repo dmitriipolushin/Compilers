@@ -1,6 +1,6 @@
 package o_project_compiler.methodsignature;
 
-import o_project_compiler.exceptions.WrongObjKindException;
+import o_project_compiler.exceptions.WrongObjectException;
 import o_project_compiler.mjsymboltable.Tab;
 import o_project_compiler.util.Utils;
 import rs.etf.pp1.symboltable.concepts.Obj;
@@ -10,7 +10,7 @@ public class ClassMethodSignature extends MethodSignature {
 
     private final Struct class_struct;
 
-    public ClassMethodSignature(Obj method, Struct clss) throws WrongObjKindException {
+    public ClassMethodSignature(Obj method, Struct clss) throws WrongObjectException {
         super(method, true);
         this.class_struct = clss;
     }

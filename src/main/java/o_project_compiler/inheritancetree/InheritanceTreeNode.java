@@ -5,8 +5,8 @@ package o_project_compiler.inheritancetree;
 import java.util.ArrayList;
 import java.util.List;
 
-import o_project_compiler.exceptions.WrongObjKindException;
-import o_project_compiler.exceptions.WrongStructKindException;
+import o_project_compiler.exceptions.WrongObjectException;
+import o_project_compiler.exceptions.WrongStructureException;
 import o_project_compiler.inheritancetree.visitor.LeafNodeVisitor;
 import o_project_compiler.vmt.VMT;
 import rs.etf.pp1.symboltable.concepts.Obj;
@@ -21,15 +21,15 @@ public class InheritanceTreeNode {
     private Obj clss;
     private final VMT vmt = new VMT();
 
-    public InheritanceTreeNode(Obj clss, InheritanceTreeNode parent) throws WrongObjKindException, WrongStructKindException {
+    public InheritanceTreeNode(Obj clss, InheritanceTreeNode parent) throws WrongObjectException, WrongStructureException {
         if (clss == null || clss.getType() == null) {
             throw new NullPointerException();
         }
         if (clss.getKind() != Obj.Type) {
-            throw new WrongObjKindException();
+            throw new WrongObjectException();
         }
         if (clss.getType().getKind() != Struct.Class) {
-            throw new WrongStructKindException();
+            throw new WrongStructureException();
         }
         this.parent = parent;
         if (this.parent != null) {
@@ -38,7 +38,7 @@ public class InheritanceTreeNode {
         this.clss = clss;
     }
 
-    public InheritanceTreeNode(Obj clss) throws WrongObjKindException, WrongStructKindException {
+    public InheritanceTreeNode(Obj clss) throws WrongObjectException, WrongStructureException {
         this(clss, InheritanceTree.ROOT_NODE);
     }
 
@@ -62,13 +62,9 @@ public class InheritanceTreeNode {
         return children;
     }
 
-    public boolean hasChildren() {
-        if (children.size() != 0) {
-            return true;
-        }
-        return false;
+    public int childrenNum() {
+        return children.size();
     }
-
     public void accept(LeafNodeVisitor inheritanceTreeNodeVisitor) {
         inheritanceTreeNodeVisitor.visit(this);
         for (InheritanceTreeNode child : children) {
