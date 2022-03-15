@@ -1,28 +1,9 @@
-/*
- * Copyright (C) 2018  Danijel Askov
- *
- * This file is part of MicroJava Compiler.
- *
- * MicroJava Compiler is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * MicroJava Compiler is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package o_project_compiler.loggers;
 
 import o_project_compiler.SemanticAnalyzer;
 import o_project_compiler.methodsignature.ClassMethodSignature;
 import o_project_compiler.methodsignature.MethodSignature;
-import o_project_compiler.util.MJUtils;
+import o_project_compiler.util.Utils;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
@@ -44,115 +25,87 @@ public class SemanticErrorLogger extends Logger<Obj> {
     @Override
     protected String messageBody(Obj obj, Object... context) {
         SemanticErrorKind semanticErrorKind = (SemanticErrorKind) context[0];
-        String message = null;
         switch (semanticErrorKind) {
             case INAPPLICABLE_METHOD:
-                message = "The method \"" + ((String) ((Object[]) context[1])[0])
-                        + "\" is not applicable for the arguments \"" + ((String) ((Object[]) context[1])[1]) + "\"";
-                break;
+                return "The method \"" + ((Object[]) context[1])[0]
+                        + "\" is not applicable for the arguments \"" + ((Object[]) context[1])[1] + "\"";
             case INVALID_PROG_NAME:
-                message = "\"" + obj.getName() + "\" is not a valid program name";
-                break;
+                return "Name \"" + obj.getName() + "\" is invalid";
             case DUPLICATE_GLOBAL_NAME:
-                message = "Duplicate global name \"" + obj.getName() + "\"";
-                break;
+                return "Global name \"" + obj.getName() + "\" is duplicated";
             case DUPLICATE_PARAMETER:
-                message = "Duplicate parameter \"" + obj.getName() + "\"";
-                break;
+                return "Parameter \"" + obj.getName() + "\" is duplicated";
             case DUPLICATE_MEMBER:
-                message = "Duplicate inner class member \"" + ((Obj) ((Object[]) context[1])[0]).getName() + "."
-                        + obj.getName() + "\"";
-                break;
+                return "Inner class member \"" + ((Obj) ((Object[]) context[1])[0]).getName() + "."
+                        + obj.getName() + "\" is duplicated";
             case DUPLICATE_LOCAL_VARIABLE:
-                message = "Duplicate local variable \"" + obj.getName() + "\"";
-                break;
+                return "Local variable \"" + obj.getName() + "\" is duplicated";
             case MAIN_METHOD_DECLARATION_NOT_FOUND:
-                message = "Declaration of global method \"void " + SemanticAnalyzer.MAIN + "()\" not found";
-                break;
+                return "Declaration of global method \"void " + SemanticAnalyzer.MAIN + "()\" not found";
             case NON_PRIMITIVE_TYPE:
-                message = "Type \"" + MJUtils.typeToString(obj.getType()) + "\" is not a primitive data type";
-                break;
+                return "Type \"" + Utils.typeToString(obj.getType()) + "\" is not a primitive data type";
             case UNRESOLVED_VARIABLE:
-                message = "\"" + obj.getName() + "\" cannot be resolved to a variable";
-                break;
+                return "\"" + obj.getName() + "\" cannot be resolved to a variable";
             case UNRESOLVED_TYPE:
-                message = "\"" + obj.getName() + "\" cannot be resolved to a type";
-                break;
+                return "\"" + obj.getName() + "\" cannot be resolved to a type";
             case INVALID_SUPERCLASS:
-                message = "\"" + obj.getName() + "\" is not a valid superclass type";
-                break;
+                return "\"" + obj.getName() + "\" is not a valid superclass type";
             case NON_VOID_MAIN:
-                message = "Method \"" + SemanticAnalyzer.MAIN + "\" must be declared as \"void\"";
-                break;
+                return "Method \"" + SemanticAnalyzer.MAIN + "\" must be declared as \"void\"";
             case MAIN_WITH_PARAMETERS:
-                message = "Method \"" + SemanticAnalyzer.MAIN + "\" must not have any formal parameters";
-                break;
+                return "Method \"" + SemanticAnalyzer.MAIN + "\" must not have any formal parameters";
             case RETURNED_VALUE_FROM_VOID_METHOD:
-                message = "Void methods cannot return a value";
-                break;
+                return "Void methods cannot return a value";
             case RETURN_NOT_FOUND:
-                message = "Method \"" + obj.getName() + "\" must return a result of type \""
-                        + MJUtils.typeToString(obj.getType()) + "\"";
-                break;
+                return "Method \"" + obj.getName() + "\" must return a result of type \""
+                        + Utils.typeToString(obj.getType()) + "\"";
             case ASSIGINING_SYMBOLIC_CONSTANT:
-                message = "Symbolic constant \"" + obj.getName() + "\" cannot be assigned";
-                break;
+                return "Symbolic constant \"" + obj.getName() + "\" cannot be assigned";
             case TYPE_MISMATCH:
-                message = "Type mismatch: cannot convert from \""
-                        + MJUtils.typeToString((Struct) ((Object[]) (context[1]))[0]) + "\" to \""
-                        + MJUtils.typeToString((Struct) ((Object[]) (context[1]))[1]) + "\"";
-                break;
+                return "Cannot convert from \""
+                        + Utils.typeToString((Struct) ((Object[]) (context[1]))[0]) + "\" to \""
+                        + Utils.typeToString((Struct) ((Object[]) (context[1]))[1]) + "\"";
             case UNDEFINED_METHOD:
-                Object[] cntx1 = (Object[]) context[1];
-                MethodSignature overriddenMethodSignature1 = (MethodSignature) cntx1[0];
-                message = "The method \"" + overriddenMethodSignature1.toString() + "\" is undefined";
-                break;
+                Object[] undefined_method_context = (Object[]) context[1];
+                MethodSignature overriddenMethodSignature1 = (MethodSignature) undefined_method_context[0];
+                return "The method \"" + overriddenMethodSignature1.toString() + "\" is undefined";
             case MISPLACED_BREAK:
-                message = "break cannot be used outside of a loop";
-                break;
+                return "break cannot be used outside of a loop";
             case MISPLACED_CONTINUE:
-                message = "continue cannot be used outside of a loop";
-                break;
+                return "continue cannot be used outside of a loop";
             case UNDEFINED_OPERATION:
-                Object[] cntx2 = (Object[]) context[1];
-                String operator = (String) cntx2[cntx2.length - 1];
+                Object[] undefined_operation_context = (Object[]) context[1];
+                String operator = (String) undefined_operation_context[undefined_operation_context.length - 1];
                 StringBuilder operandTypes = new StringBuilder();
-                for (int i = 0; i < cntx2.length - 1; i++) {
-                    operandTypes.append("\"" + MJUtils.typeToString((Struct) cntx2[i]) + "\"");
-                    if (i < cntx2.length - 2) {
+                for (int i = 0; i < undefined_operation_context.length - 1; i++) {
+                    operandTypes.append("\"" + Utils.typeToString((Struct) undefined_operation_context[i]) + "\"");
+                    if (i < undefined_operation_context.length - 2) {
                         operandTypes.append(", ");
                     }
                 }
-                message = "The operator \"" + operator + "\" is undefined for the argument type(s) "
-                        + operandTypes.toString();
-                ;
-                break;
+                return "The operator \"" + operator + "\" is undefined for the argument type(s) "
+                        + operandTypes;
             case INDEXING_NON_ARRAY:
-                message = "The type of the designator must be an array type but it resolved to \""
-                        + MJUtils.typeToString((Struct) ((Object[]) context[1])[0]) + "\"";
-                break;
+                return "The type of the designator must be an array type but it resolved to \""
+                        + Utils.typeToString((Struct) ((Object[]) context[1])[0]) + "\"";
             case ACCESSING_MEMBER_OF_NON_OBJECT:
-                message = "The type of the designator must be a class type but it resolved to \""
-                        + MJUtils.typeToString((Struct) ((Object[]) context[1])[0]) + "\"";
-                break;
+                return "The type of the designator must be a class type but it resolved to \""
+                        + Utils.typeToString((Struct) ((Object[]) context[1])[0]) + "\"";
             case UNRESOLVED_MEMBER:
-                message = "\"" + obj.getName() + "\" cannot be resolved to a class member";
-                break;
+                return "\"" + obj.getName() + "\" cannot be resolved to a class member";
             case INCOMPATIBLE_RETURN_TYPE:
-                Object[] cntx3 = (Object[]) context[1];
-                ClassMethodSignature overriddenMethodSignature2 = (ClassMethodSignature) cntx3[0];
-                message = "The return type is incompatible with \"" + overriddenMethodSignature2.toString() + "\"";
-                break;
+                Object[] return_type_context = (Object[]) context[1];
+                ClassMethodSignature overriddenMethodSignature2 = (ClassMethodSignature) return_type_context[0];
+                return "The return type is incompatible with \"" + overriddenMethodSignature2.toString() + "\"";
             case UNINVOKABLE_METHOD:
-                Object[] cntx4 = (Object[]) context[1];
-                MethodSignature overriddenMethodSignature3 = (MethodSignature) cntx4[0];
-                Struct type = (Struct) cntx4[1];
-                message = "Cannot invoke \"" + overriddenMethodSignature3.getMethodName() + " "
-                        + overriddenMethodSignature3.getParameterList() + "\" on the type \"" + MJUtils.typeToString(type)
+                Object[] uninvokable_context = (Object[]) context[1];
+                MethodSignature overriddenMethodSignature3 = (MethodSignature) uninvokable_context[0];
+                Struct type = (Struct) uninvokable_context[1];
+                return "Cannot invoke \"" + overriddenMethodSignature3.getMethodName() + " "
+                        + overriddenMethodSignature3.getParameterList() + "\" on the type \"" + Utils.typeToString(type)
                         + "\"";
-                break;
+            default:
+                return "";
         }
-        return message;
     }
-
 }

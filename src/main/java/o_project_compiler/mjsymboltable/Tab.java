@@ -29,7 +29,6 @@ import o_project_compiler.inheritancetree.InheritanceTreeNode;
 import o_project_compiler.inheritancetree.visitor.LeafNodeVisitor;
 import org.apache.log4j.Logger;
 
-import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Scope;
 import rs.etf.pp1.symboltable.concepts.Struct;
@@ -38,7 +37,7 @@ import rs.etf.pp1.symboltable.concepts.Struct;
  *
  * @author Danijel Askov
  */
-public class MJTab extends Tab {
+public class Tab extends rs.etf.pp1.symboltable.Tab {
 
     public static final Struct BOOL_TYPE = new Struct(Struct.Bool);
     public static final String MAIN = "main", TRUE = "true", FALSE = "false";
@@ -51,7 +50,7 @@ public class MJTab extends Tab {
     public static Obj vecTimesScalarMethod;
     public static Obj scalarTimesVecMethod;
     public static Obj vecPlusVecMethod;
-    public static final Struct INT_ARRAY_TYPE = new Struct(Struct.Array, Tab.intType);
+    public static final Struct INT_ARRAY_TYPE = new Struct(Struct.Array, rs.etf.pp1.symboltable.Tab.intType);
 
     private static final String PRINT_BOOL = "$printBool", READ_BOOL = "$readBool";
     private static final String VEC_TIMES_VEC = "$vecTimesVec", VEC_PLUS_VEC = "$vecPlusVec",
@@ -61,7 +60,7 @@ public class MJTab extends Tab {
     private static int classId = 0;
 
     public static void init() {
-        Tab.init();
+        rs.etf.pp1.symboltable.Tab.init();
         currentScope.addToLocals(new Obj(Obj.Type, "bool", BOOL_TYPE));
         currentScope.addToLocals(printBoolMethod = new Obj(Obj.Meth, PRINT_BOOL, noType, 0, 2));
         {
@@ -151,7 +150,7 @@ public class MJTab extends Tab {
     }
 
     public static Obj insert(int kind, String name, Struct type) {
-        Obj result = Tab.insert(kind, name, type);
+        Obj result = rs.etf.pp1.symboltable.Tab.insert(kind, name, type);
         if (kind == Obj.Type && type.getKind() == Struct.Class) {
             CLASS_OBJS.put(type, result);
         }

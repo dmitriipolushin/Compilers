@@ -22,7 +22,7 @@ package o_project_compiler.util;
 import o_project_compiler.exceptions.WrongObjKindException;
 import o_project_compiler.exceptions.WrongStructKindException;
 import o_project_compiler.methodsignature.ClassMethodSignature;
-import o_project_compiler.mjsymboltable.MJTab;
+import o_project_compiler.mjsymboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
@@ -30,16 +30,16 @@ import rs.etf.pp1.symboltable.concepts.Struct;
  *
  * @author Danijel Askov
  */
-public final class MJUtils {
+public final class Utils {
 
-    private MJUtils() {
+    private Utils() {
     }
 
     public static boolean haveSameSignatures(Obj method1, Obj method2) throws WrongObjKindException {
         if (method1 == null || method2 == null) {
             return false;
         }
-        return new ClassMethodSignature(method1, MJTab.noType).equals(new ClassMethodSignature(method2, MJTab.noType));
+        return new ClassMethodSignature(method1, Tab.noType).equals(new ClassMethodSignature(method2, Tab.noType));
     }
 
     public static boolean returnTypesAssignmentCompatible(Obj overridingMethod, Obj overriddenMethod)
@@ -61,10 +61,10 @@ public final class MJUtils {
             case Struct.Array:
                 return typeToString(type.getElemType()) + "[]";
             case Struct.Class:
-                if (type == MJTab.nullType) {
+                if (type == Tab.nullType) {
                     return "null";
                 } else {
-                    return MJTab.findObjForClass(type).getName();
+                    return Tab.findObjForClass(type).getName();
                 }
             case Struct.None:
                 return "void";
@@ -74,11 +74,7 @@ public final class MJUtils {
     }
 
     public static String getCompactClassMethodSignature(Obj method) throws WrongObjKindException {
-        return new ClassMethodSignature(method, MJTab.noType).getCompactSignature();
-    }
-
-    public static String getClassMethodDeclaration(Obj method, Struct clss) throws WrongObjKindException {
-        return typeToString(method.getType()) + " " + new ClassMethodSignature(method, clss);
+        return new ClassMethodSignature(method, Tab.noType).getCompactSignature();
     }
 
     public static boolean assignableTo(Struct source, Struct destination) {
@@ -121,7 +117,7 @@ public final class MJUtils {
     }
 
     public static boolean isPrimitiveDataType(Struct type) {
-        return type.equals(MJTab.intType) || type.equals(MJTab.charType) || type.equals(MJTab.BOOL_TYPE);
+        return type.equals(Tab.intType) || type.equals(Tab.charType) || type.equals(Tab.BOOL_TYPE);
     }
 
 }

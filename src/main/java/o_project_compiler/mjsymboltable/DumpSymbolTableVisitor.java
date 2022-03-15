@@ -90,7 +90,7 @@ public class DumpSymbolTableVisitor extends rs.etf.pp1.symboltable.visitors.Dump
             objToVisit.getType().accept(this);
         } else {
             if (objToVisit.getType().getKind() == Struct.Class) {
-                Obj clss = MJTab.findObjForClass(objToVisit.getType());
+                Obj clss = Tab.findObjForClass(objToVisit.getType());
                 if (clss != null) {
                     output.append(clss.getName());
                 }

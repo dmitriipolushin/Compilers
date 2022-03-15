@@ -566,7 +566,7 @@ class CUP$MJParser$actions {
               ErrorProneCondition RESULT = null;
 		
                              Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INV_IF_STMT_COND);
+                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INVALID_IF_STATEMENT_CONDITION);
                              parser.report_error(null, null);
                            RESULT=new ErrorCondition(); 
               CUP$MJParser$result = new java_cup.runtime.Symbol(45/*ErrorProneCondition*/, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).left, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).right, RESULT);
@@ -600,7 +600,7 @@ class CUP$MJParser$actions {
               ErrorProneExpr RESULT = null;
 		
                              Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INV_ASSIGNMENT);
+                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INVALID_ASSIGNMENT);
                              parser.report_error(null, null);
                            RESULT=new ErrorExpr(); 
               CUP$MJParser$result = new java_cup.runtime.Symbol(40/*ErrorProneExpr*/, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).left, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).right, RESULT);
@@ -1327,7 +1327,7 @@ class CUP$MJParser$actions {
               ErrorProneFormPar RESULT = null;
 		
                              Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INV_FORM_PAR);
+                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INVALID_FORMAL_PARAMETER);
                              parser.report_error(null, null);
                            RESULT=new ErrorFormPar(); 
               CUP$MJParser$result = new java_cup.runtime.Symbol(33/*ErrorProneFormPar*/, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).left, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).right, RESULT);
@@ -1660,7 +1660,7 @@ class CUP$MJParser$actions {
               ErrorProneSuperclass RESULT = null;
 		
                              Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INV_CLASS_INHERITANCE);
+                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INVALID_CLASS_INHERITANCE);
                              parser.report_error(null, null);
                            RESULT=new ErrorSuperclass(); 
               CUP$MJParser$result = new java_cup.runtime.Symbol(11/*ErrorProneSuperclass*/, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-1)).left, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).right, RESULT);
@@ -1706,7 +1706,7 @@ class CUP$MJParser$actions {
               ErrorProneGlobalVar RESULT = null;
 		
                              Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INV_GLOBAL_VAR_DECL);
+                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INVALID_GLOBAL_VARIABLE_DECLARATION);
                              parser.report_error(null, null);
                            RESULT=new ErrorGlobalVar(); 
               CUP$MJParser$result = new java_cup.runtime.Symbol(19/*ErrorProneGlobalVar*/, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).left, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).right, RESULT);
@@ -1770,7 +1770,7 @@ class CUP$MJParser$actions {
               ErrorGlobalVarDecl RESULT = null;
 		
                              Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INV_DECL);
+                             parser.syntaxErrorMJLogger.log(null, symbol.left, null, SyntaxErrorLogger.SyntaxErrorKind.INVALID_DECLARATION);
                              parser.report_error(null, null);
                            RESULT=new ErrorGlobalVarDecl(); 
               CUP$MJParser$result = new java_cup.runtime.Symbol(18/*ErrorGlobalVarDecl*/, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).left, ((java_cup.runtime.Symbol)CUP$MJParser$stack.elementAt(CUP$MJParser$top-0)).right, RESULT);

@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2018  Danijel Askov
- *
- * This file is part of MicroJava Compiler.
- *
- * MicroJava Compiler is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * MicroJava Compiler is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package o_project_compiler.methodsignature;
 
 import java.util.ArrayList;
@@ -24,19 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 
 import o_project_compiler.exceptions.WrongObjKindException;
-import o_project_compiler.util.MJUtils;
+import o_project_compiler.util.Utils;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
-/**
- *
- * @author Danijel Askov
- */
 public abstract class MethodSignature {
 
     private Obj method;
 
-    private String methodName;
+    private final String methodName;
     private final List<Struct> parameters = new ArrayList<>();
     private String compactParameterList = "";
     private String parameterList = "";
@@ -56,8 +33,8 @@ public abstract class MethodSignature {
 
     public void addParameter(Struct parameter) {
         parameters.add(parameter);
-        compactParameterList += MJUtils.typeToString(parameter);
-        parameterList += (parameterList.equals("") ? "" : ", ") + MJUtils.typeToString(parameter);
+        compactParameterList += Utils.typeToString(parameter);
+        parameterList += (parameterList.equals("") ? "" : ", ") + Utils.typeToString(parameter);
     }
 
     public void addParameter(Obj parameter) {
@@ -79,7 +56,7 @@ public abstract class MethodSignature {
         while (i < parameterCount) {
             Obj currentParameter = parametersIterator.next();
             this.parameters.add(currentParameter.getType());
-            String parameterType = MJUtils.typeToString(currentParameter.getType());
+            String parameterType = Utils.typeToString(currentParameter.getType());
             compactParameterList += parameterType;
             parameterList += parameterType;
             if (i < parameterCount - 1) {
@@ -128,7 +105,7 @@ public abstract class MethodSignature {
                 Iterator<Struct> thisParametersIterator = parameters.iterator();
                 Iterator<Struct> otherParametersIterator = other.parameters.iterator();
                 while (thisParametersIterator.hasNext()) {
-                    if (!MJUtils.assignableTo(otherParametersIterator.next(), thisParametersIterator.next())) {
+                    if (!Utils.assignableTo(otherParametersIterator.next(), thisParametersIterator.next())) {
                         return false;
                     }
                 }

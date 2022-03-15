@@ -24,8 +24,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import o_project_compiler.exceptions.WrongObjKindException;
-import o_project_compiler.mjsymboltable.MJTab;
-import o_project_compiler.util.MJUtils;
+import o_project_compiler.mjsymboltable.Tab;
+import o_project_compiler.util.Utils;
 import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.concepts.Obj;
 
@@ -52,13 +52,13 @@ public class VMT {
             return false;
         } else {
             methods.add(method);
-            size += MJUtils.getCompactClassMethodSignature(method).length() + 2;
+            size += Utils.getCompactClassMethodSignature(method).length() + 2;
             return true;
         }
     }
 
-    private Obj sourceWord = new Obj(Obj.Con, "$currentChar", MJTab.charType);
-    private Obj destinationWord = new Obj(Obj.Var, "$currentWordInStaticMemoryZone", MJTab.intType, 0, 0);
+    private Obj sourceWord = new Obj(Obj.Con, "$currentChar", Tab.charType);
+    private Obj destinationWord = new Obj(Obj.Var, "$currentWordInStaticMemoryZone", Tab.intType, 0, 0);
 
     private void putInStaticMemoryZone(int word) {
         sourceWord.setAdr(word);
@@ -74,7 +74,7 @@ public class VMT {
                 Obj method = iterator.next();
                 String methodSignature;
                 try {
-                    methodSignature = MJUtils.getCompactClassMethodSignature(method);
+                    methodSignature = Utils.getCompactClassMethodSignature(method);
                 } catch (WrongObjKindException e) {
                     methodSignature = null;
                     e.printStackTrace();
@@ -106,12 +106,12 @@ public class VMT {
         while (iterator.hasNext()) {
             Obj method = iterator.next();
             stringBuilder
-                    .append("(" + i++ + ") " + MJUtils.typeToString(method.getType()) + " " + method.getName() + "(");
+                    .append("(" + i++ + ") " + Utils.typeToString(method.getType()) + " " + method.getName() + "(");
             int formParsNumber = method.getLevel();
             int currentFormPar = 0;
             Iterator<Obj> pars = method.getLocalSymbols().iterator();
             while (pars.hasNext() && currentFormPar < formParsNumber) {
-                stringBuilder.append(MJUtils.typeToString(pars.next().getType()));
+                stringBuilder.append(Utils.typeToString(pars.next().getType()));
                 currentFormPar++;
                 if (pars.hasNext() && currentFormPar < formParsNumber) {
                     stringBuilder.append(",");
@@ -130,7 +130,7 @@ public class VMT {
     public boolean containsSameSignatureMethod(Obj overriddenMethod) {
         for (Obj method : methods) {
             try {
-                if (MJUtils.haveSameSignatures(method, overriddenMethod)) {
+                if (Utils.haveSameSignatures(method, overriddenMethod)) {
                     return true;
                 }
             } catch (WrongObjKindException e) {
@@ -147,7 +147,7 @@ public class VMT {
     public Obj getSameSignatureMethod(Obj overriddenMethod) {
         for (Obj method : methods) {
             try {
-                if (MJUtils.haveSameSignatures(method, overriddenMethod)) {
+                if (Utils.haveSameSignatures(method, overriddenMethod)) {
                     return method;
                 }
             } catch (WrongObjKindException e) {

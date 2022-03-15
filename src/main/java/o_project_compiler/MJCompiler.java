@@ -31,7 +31,7 @@ import java_cup.runtime.Symbol;
 import o_project_compiler.ast.Program;
 import o_project_compiler.inheritancetree.InheritanceTree;
 import o_project_compiler.inheritancetree.visitor.InheritanceTreePrinter;
-import o_project_compiler.mjsymboltable.MJTab;
+import o_project_compiler.mjsymboltable.Tab;
 import o_project_compiler.util.Log4JUtils;
 import o_project_compiler.vmt.VMTCodeGenerator;
 import o_project_compiler.vmt.VMTCreator;
@@ -49,7 +49,7 @@ public class MJCompiler {
     private static final Logger LOGGER = Logger.getLogger(MJCompiler.class);
 
     public static void tsdump() {
-        MJTab.dump(LOGGER);
+        Tab.dump(LOGGER);
     }
 
     public static void main(String[] args) throws Exception {
@@ -75,7 +75,7 @@ public class MJCompiler {
 
                 LOGGER.info("Abstract syntax tree:\n" + program.toString(""));
 
-                MJTab.init();
+                Tab.init();
                 SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
                 program.traverseBottomUp(semanticAnalyzer);
 

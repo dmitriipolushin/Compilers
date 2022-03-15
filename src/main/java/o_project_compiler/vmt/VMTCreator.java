@@ -23,7 +23,7 @@ import o_project_compiler.exceptions.WrongObjKindException;
 import o_project_compiler.inheritancetree.InheritanceTree;
 import o_project_compiler.inheritancetree.InheritanceTreeNode;
 import o_project_compiler.inheritancetree.visitor.InheritanceTreeVisitor;
-import o_project_compiler.util.MJUtils;
+import o_project_compiler.util.Utils;
 import rs.etf.pp1.symboltable.concepts.Obj;
 
 /**
@@ -43,7 +43,7 @@ public class VMTCreator implements InheritanceTreeVisitor {
             for (Obj member : child.getClss().getType().getMembers()) {
                 if (member.getKind() == Obj.Meth) {
                     try {
-                        if (MJUtils.haveSameSignatures(member, overriddenMethod)) {
+                        if (Utils.haveSameSignatures(member, overriddenMethod)) {
                             updateVMTs(child, member);
                             childVisited = true;
                             break;
@@ -70,8 +70,8 @@ public class VMTCreator implements InheritanceTreeVisitor {
                         for (Obj parentMember : parent.getClss().getType().getMembers()) {
                             if (parentMember.getKind() == Obj.Meth) {
                                 try {
-                                    if (MJUtils.haveSameSignatures(member, parentMember)) {
-                                        if (MJUtils.returnTypesAssignmentCompatible(member, parentMember)) {
+                                    if (Utils.haveSameSignatures(member, parentMember)) {
+                                        if (Utils.returnTypesAssignmentCompatible(member, parentMember)) {
                                             overridenMethodFound = true;
                                             updateVMTs(parent, parentMember);
                                             break;

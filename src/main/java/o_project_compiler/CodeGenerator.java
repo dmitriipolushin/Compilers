@@ -86,10 +86,9 @@ import o_project_compiler.exceptions.WrongObjKindException;
 import o_project_compiler.exceptions.WrongStructKindException;
 import o_project_compiler.inheritancetree.InheritanceTree;
 import o_project_compiler.inheritancetree.InheritanceTreeNode;
-import o_project_compiler.mjsymboltable.MJTab;
-import o_project_compiler.util.MJUtils;
+import o_project_compiler.mjsymboltable.Tab;
+import o_project_compiler.util.Utils;
 import rs.etf.pp1.mj.runtime.Code;
-import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
@@ -114,7 +113,7 @@ public class CodeGenerator extends VisitorAdaptor {
     }
 
     private int mainPc;
-    private Obj currentClassObj = Tab.noObj;
+    private Obj currentClassObj = rs.etf.pp1.symboltable.Tab.noObj;
     private final Stack<Integer> currentDoWhileStartAddress = new Stack<>();
     private final Stack<Integer> currentSkipElseJump = new Stack<>();
     private final Stack<List<Integer>> currentBreakJumps = new Stack<>();
@@ -159,7 +158,7 @@ public class CodeGenerator extends VisitorAdaptor {
      * </pre>
      */
     public static void generatePrintBoolMethod() {
-        MJTab.printBoolMethod.setAdr(Code.pc);
+        Tab.printBoolMethod.setAdr(Code.pc);
 
         Code.put(Code.enter);
         Code.put(2);
@@ -213,9 +212,9 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.put(Code.jcc + Code.ne);
         Code.put2(34);
         // print('t'); print('r'); print('u'); print('e');
-        for (int i = 0; i < MJTab.TRUE.length(); i++) {
-            Code.load(new Obj(Obj.Con, "charValue", Tab.charType, MJTab.TRUE.charAt(i), 0));
-            Code.load(new Obj(Obj.Con, "width", Tab.intType, 1, 0));
+        for (int i = 0; i < Tab.TRUE.length(); i++) {
+            Code.load(new Obj(Obj.Con, "charValue", rs.etf.pp1.symboltable.Tab.charType, Tab.TRUE.charAt(i), 0));
+            Code.load(new Obj(Obj.Con, "width", rs.etf.pp1.symboltable.Tab.intType, 1, 0));
             Code.put(Code.bprint);
         }
         // } else { // b == false
@@ -223,9 +222,9 @@ public class CodeGenerator extends VisitorAdaptor {
         // }
         Code.put(Code.jmp);
         Code.put2(38);
-        for (int i = 0; i < MJTab.FALSE.length(); i++) {
-            Code.load(new Obj(Obj.Con, "charValue", Tab.charType, MJTab.FALSE.charAt(i), 0));
-            Code.load(new Obj(Obj.Con, "width", Tab.intType, 1, 0));
+        for (int i = 0; i < Tab.FALSE.length(); i++) {
+            Code.load(new Obj(Obj.Con, "charValue", rs.etf.pp1.symboltable.Tab.charType, Tab.FALSE.charAt(i), 0));
+            Code.load(new Obj(Obj.Con, "width", rs.etf.pp1.symboltable.Tab.intType, 1, 0));
             Code.put(Code.bprint);
         }
         Code.put(Code.exit);
@@ -270,7 +269,7 @@ public class CodeGenerator extends VisitorAdaptor {
      * </pre>
      */
     public static void generateReadBoolMethod() {
-        MJTab.readBoolMethod.setAdr(Code.pc);
+        Tab.readBoolMethod.setAdr(Code.pc);
 
         Code.put(Code.enter);
         Code.put(0);
@@ -329,11 +328,11 @@ public class CodeGenerator extends VisitorAdaptor {
         // break;
         // }
         int skipAddress = 46;
-        for (int i = 0; i < MJTab.TRUE.length(); i++) {
+        for (int i = 0; i < Tab.TRUE.length(); i++) {
             Code.put(Code.load_n);
-            Code.load(new Obj(Obj.Con, "", MJTab.intType, i, 0));
+            Code.load(new Obj(Obj.Con, "", Tab.intType, i, 0));
             Code.put(Code.baload);
-            Code.load(new Obj(Obj.Con, "", MJTab.charType, MJTab.TRUE.charAt(i), 0));
+            Code.load(new Obj(Obj.Con, "", Tab.charType, Tab.TRUE.charAt(i), 0));
             Code.put(Code.jcc + Code.ne);
             Code.put2(skipAddress);
             skipAddress -= 11;
@@ -352,11 +351,11 @@ public class CodeGenerator extends VisitorAdaptor {
         // break;
         // }
         skipAddress = 61;
-        for (int i = 0; i < MJTab.FALSE.length(); i++) {
+        for (int i = 0; i < Tab.FALSE.length(); i++) {
             Code.put(Code.load_n);
-            Code.load(new Obj(Obj.Con, "", MJTab.intType, i, 0));
+            Code.load(new Obj(Obj.Con, "", Tab.intType, i, 0));
             Code.put(Code.baload);
-            Code.load(new Obj(Obj.Con, "", MJTab.charType, MJTab.FALSE.charAt(i), 0));
+            Code.load(new Obj(Obj.Con, "", Tab.charType, Tab.FALSE.charAt(i), 0));
             Code.put(Code.jcc + Code.ne);
             Code.put2(skipAddress);
             skipAddress -= 11;
@@ -413,7 +412,7 @@ public class CodeGenerator extends VisitorAdaptor {
      * </pre>
      */
     public static void generateVecTimesVecMethod() {
-        MJTab.vecTimesVecMethod.setAdr(Code.pc);
+        Tab.vecTimesVecMethod.setAdr(Code.pc);
 
         Code.put(Code.enter);
         Code.put(2);
@@ -511,7 +510,7 @@ public class CodeGenerator extends VisitorAdaptor {
      * </pre>
      */
     public static void generateVecTimesScalarMethod() {
-        MJTab.vecTimesScalarMethod.setAdr(Code.pc);
+        Tab.vecTimesScalarMethod.setAdr(Code.pc);
 
         Code.put(Code.enter);
         Code.put(2);
@@ -597,7 +596,7 @@ public class CodeGenerator extends VisitorAdaptor {
      * </pre>
      */
     public static void generateScalarTimesVectorMethod() {
-        MJTab.scalarTimesVecMethod.setAdr(Code.pc);
+        Tab.scalarTimesVecMethod.setAdr(Code.pc);
 
         Code.put(Code.enter);
         Code.put(2);
@@ -684,7 +683,7 @@ public class CodeGenerator extends VisitorAdaptor {
      * </pre>
      */
     public static void generateVecPlusVecMethod() {
-        MJTab.vecPlusVecMethod.setAdr(Code.pc);
+        Tab.vecPlusVecMethod.setAdr(Code.pc);
 
         Code.put(Code.enter);
         Code.put(2);
@@ -761,13 +760,13 @@ public class CodeGenerator extends VisitorAdaptor {
     public void generateMethodInvocationCode(Obj overriddenMethod) {
         List<Integer> jmpAddresses = new ArrayList<>();
         int jccAddress;
-        List<Obj> leafClasses = MJTab.getLeafClasses();
+        List<Obj> leafClasses = Tab.getLeafClasses();
         List<Obj> filteredLeafClasses = new ArrayList<>();
         for (Obj clss : leafClasses) {
             for (Obj member : clss.getType().getMembers()) {
                 if (member.getKind() == Obj.Meth) {
                     try {
-                        if (MJUtils.haveSameSignatures(member, overriddenMethod)) {
+                        if (Utils.haveSameSignatures(member, overriddenMethod)) {
                             filteredLeafClasses.add(clss);
                         }
                     } catch (WrongObjKindException e) {
@@ -780,7 +779,7 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.put(Code.dup);
             Code.put(Code.getfield);
             Code.put2(1);
-            Code.load(new Obj(Obj.Con, "", MJTab.intType, clss.getLevel(), 0));
+            Code.load(new Obj(Obj.Con, "", Tab.intType, clss.getLevel(), 0));
             Code.put(Code.jcc + Code.ne);
             jccAddress = Code.pc;
             Code.put2(0);
@@ -817,7 +816,7 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.put(Code.invokevirtual);
         String methodSignature;
         try {
-            methodSignature = MJUtils.getCompactClassMethodSignature(overriddenMethod);
+            methodSignature = Utils.getCompactClassMethodSignature(overriddenMethod);
         } catch (WrongObjKindException e) {
             methodSignature = null;
             e.printStackTrace();
@@ -837,7 +836,7 @@ public class CodeGenerator extends VisitorAdaptor {
         public void visit(IdentDesignator identDesignator) {
             int identDesignatorKind = identDesignator.obj.getKind();
             Obj obj;
-            if (!currentClassObj.equals(Tab.noObj)) {
+            if (!currentClassObj.equals(rs.etf.pp1.symboltable.Tab.noObj)) {
                 obj = new Obj(Obj.Var, SemanticAnalyzer.THIS, currentClassObj.getType(), 0, 1);
                 if (identDesignatorKind == Obj.Fld) {
                     Code.load(obj);
@@ -873,7 +872,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
     @Override
     public void visit(ClassDecl classDecl) {
-        currentClassObj = Tab.noObj;
+        currentClassObj = rs.etf.pp1.symboltable.Tab.noObj;
     }
 
     @Override
@@ -886,7 +885,7 @@ public class CodeGenerator extends VisitorAdaptor {
                 Code.fixup(addr);
             }
         }
-        if (methodNameObj.getName().equals(MJTab.MAIN)) {
+        if (methodNameObj.getName().equals(Tab.MAIN)) {
             mainPc = Code.pc;
         }
         Code.put(Code.enter);
@@ -897,7 +896,7 @@ public class CodeGenerator extends VisitorAdaptor {
     @Override
     public void visit(MethodDecl methodDecl) {
         Obj methodNameObj = methodDecl.getMethodName().obj;
-        if (methodNameObj.getType() == Tab.noType) {
+        if (methodNameObj.getType() == rs.etf.pp1.symboltable.Tab.noType) {
             Code.put(Code.exit);
             Code.put(Code.return_);
         } else {
@@ -913,13 +912,13 @@ public class CodeGenerator extends VisitorAdaptor {
                 : ((MethodCallFactor) actParsEnd.getParent()).getDesignator();
         int offset = methodDesignator.obj.getAdr() - Code.pc;
         Obj thisParameterObj = thisParameterObjs.pop();
-        if (methodDesignator.obj == MJTab.lenMethod) {
+        if (methodDesignator.obj == Tab.lenMethod) {
             Code.put(Code.arraylength);
-        } else if (!(methodDesignator.obj == MJTab.ordMethod || methodDesignator.obj == MJTab.chrMethod)) {
-            if (!thisParameterObj.equals(Tab.noObj)) {
+        } else if (!(methodDesignator.obj == Tab.ordMethod || methodDesignator.obj == Tab.chrMethod)) {
+            if (!thisParameterObj.equals(rs.etf.pp1.symboltable.Tab.noObj)) {
                 try {
                     InheritanceTreeNode thisParameterTypeNode = InheritanceTree
-                            .getNode((MJTab.findObjForClass(thisParameterObj.getType())));
+                            .getNode((Tab.findObjForClass(thisParameterObj.getType())));
                     if (thisParameterTypeNode.getVMT().containsSameSignatureMethod(methodDesignator.obj)
                             && thisParameterTypeNode.hasChildren()) {
                         methodDesignator.traverseBottomUp(new ThisParameterLoader());
@@ -952,7 +951,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
     @Override
     public void visit(MethodCallDesignatorStatement methodCallDesignatorStatement) {
-        if (methodCallDesignatorStatement.getDesignator().obj.getType() != Tab.noType) {
+        if (methodCallDesignatorStatement.getDesignator().obj.getType() != rs.etf.pp1.symboltable.Tab.noType) {
             Code.put(Code.pop);
         }
     }
@@ -966,12 +965,12 @@ public class CodeGenerator extends VisitorAdaptor {
     public void visit(ReadStatement readStatement) {
         Struct designatorType = readStatement.getDesignator().obj.getType();
 
-        if (designatorType.equals(Tab.charType)) {
+        if (designatorType.equals(rs.etf.pp1.symboltable.Tab.charType)) {
             Code.put(Code.bread);
-        } else if (designatorType.equals(Tab.intType)) {
+        } else if (designatorType.equals(rs.etf.pp1.symboltable.Tab.intType)) {
             Code.put(Code.read);
         } else {
-            int offset = MJTab.readBoolMethod.getAdr() - Code.pc;
+            int offset = Tab.readBoolMethod.getAdr() - Code.pc;
             Code.put(Code.call);
             Code.put2(offset);
         }
@@ -982,13 +981,13 @@ public class CodeGenerator extends VisitorAdaptor {
     public void visit(PrintExprStatement printExprStatement) {
         Struct exprType = printExprStatement.getExpr().obj.getType();
 
-        Code.load(new Obj(Obj.Con, "width", Tab.intType, 1, 0));
-        if (exprType.equals(Tab.charType)) {
+        Code.load(new Obj(Obj.Con, "width", rs.etf.pp1.symboltable.Tab.intType, 1, 0));
+        if (exprType.equals(rs.etf.pp1.symboltable.Tab.charType)) {
             Code.put(Code.bprint);
-        } else if (exprType.equals(Tab.intType)) {
+        } else if (exprType.equals(rs.etf.pp1.symboltable.Tab.intType)) {
             Code.put(Code.print);
         } else {
-            int offset = MJTab.printBoolMethod.getAdr() - Code.pc;
+            int offset = Tab.printBoolMethod.getAdr() - Code.pc;
             Code.put(Code.call);
             Code.put2(offset);
         }
@@ -998,13 +997,13 @@ public class CodeGenerator extends VisitorAdaptor {
     public void visit(PrintExprIntConstStatement printExprIntConstStatement) {
         Struct exprType = printExprIntConstStatement.getExpr().obj.getType();
 
-        Code.load(new Obj(Obj.Con, "width", Tab.intType, printExprIntConstStatement.getIntValue(), 0));
-        if (exprType.equals(Tab.charType)) {
+        Code.load(new Obj(Obj.Con, "width", rs.etf.pp1.symboltable.Tab.intType, printExprIntConstStatement.getIntValue(), 0));
+        if (exprType.equals(rs.etf.pp1.symboltable.Tab.charType)) {
             Code.put(Code.bprint);
-        } else if (exprType.equals(Tab.intType)) {
+        } else if (exprType.equals(rs.etf.pp1.symboltable.Tab.intType)) {
             Code.put(Code.print);
         } else {
-            int offset = MJTab.printBoolMethod.getAdr() - Code.pc;
+            int offset = Tab.printBoolMethod.getAdr() - Code.pc;
             Code.put(Code.call);
             Code.put2(offset);
         }
@@ -1150,7 +1149,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
     @Override
     public void visit(ExprCondFactor exprCondFactor) {
-        Code.load(new Obj(Obj.Con, "true", MJTab.BOOL_TYPE, 1, 0));
+        Code.load(new Obj(Obj.Con, "true", Tab.BOOL_TYPE, 1, 0));
         Code.putFalseJump(Code.eq, 0);
         currentNextCondTermJumps.peek().add(Code.pc - 2);
     }
@@ -1194,8 +1193,8 @@ public class CodeGenerator extends VisitorAdaptor {
     @Override
     public void visit(IdentDesignator identDesignator) {
         int identDesignatorKind = identDesignator.obj.getKind();
-        Obj obj = Tab.noObj;
-        if (!currentClassObj.equals(Tab.noObj)) {
+        Obj obj = rs.etf.pp1.symboltable.Tab.noObj;
+        if (!currentClassObj.equals(rs.etf.pp1.symboltable.Tab.noObj)) {
             obj = new Obj(Obj.Var, SemanticAnalyzer.THIS, currentClassObj.getType(), 0, 1);
             if (identDesignatorKind == Obj.Fld) {
                 Code.load(obj);
@@ -1238,7 +1237,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
     @Override
     public void visit(IdentDesignatorStart identDesignatorStart) {
-        if (!currentClassObj.equals(Tab.noObj)) {
+        if (!currentClassObj.equals(rs.etf.pp1.symboltable.Tab.noObj)) {
             int identDesignatorStartKind = identDesignatorStart.obj.getKind();
             if (identDesignatorStartKind == Obj.Fld) {
                 Obj obj = new Obj(Obj.Var, SemanticAnalyzer.THIS, currentClassObj.getType(), 0, 1);
@@ -1262,8 +1261,8 @@ public class CodeGenerator extends VisitorAdaptor {
         Struct exprType = addopExpr.obj.getType();
         Struct termType = addopExpr.obj.getType();
         if (addopExpr.getAddop() instanceof PlusAddop) {
-            if (exprType.equals(MJTab.INT_ARRAY_TYPE) && termType.equals(MJTab.INT_ARRAY_TYPE)) {
-                int offset = MJTab.vecPlusVecMethod.getAdr() - Code.pc;
+            if (exprType.equals(Tab.INT_ARRAY_TYPE) && termType.equals(Tab.INT_ARRAY_TYPE)) {
+                int offset = Tab.vecPlusVecMethod.getAdr() - Code.pc;
                 Code.put(Code.call);
                 Code.put2(offset);
             } else {
@@ -1280,18 +1279,18 @@ public class CodeGenerator extends VisitorAdaptor {
         Struct termType = mulopTerm.getTerm().obj.getType();
         Struct factorType = mulopTerm.getFactor().obj.getType();
         if (mulop instanceof TimesMulop) {
-            if (termType.equals(MJTab.intType) && factorType.equals(MJTab.intType)) {
+            if (termType.equals(Tab.intType) && factorType.equals(Tab.intType)) {
                 Code.put(Code.mul);
-            } else if (termType.equals(MJTab.INT_ARRAY_TYPE) && factorType.equals(MJTab.INT_ARRAY_TYPE)) {
-                int offset = MJTab.vecTimesVecMethod.getAdr() - Code.pc;
+            } else if (termType.equals(Tab.INT_ARRAY_TYPE) && factorType.equals(Tab.INT_ARRAY_TYPE)) {
+                int offset = Tab.vecTimesVecMethod.getAdr() - Code.pc;
                 Code.put(Code.call);
                 Code.put2(offset);
-            } else if (termType.equals(MJTab.INT_ARRAY_TYPE) && factorType.equals(MJTab.intType)) {
-                int offset = MJTab.vecTimesScalarMethod.getAdr() - Code.pc;
+            } else if (termType.equals(Tab.INT_ARRAY_TYPE) && factorType.equals(Tab.intType)) {
+                int offset = Tab.vecTimesScalarMethod.getAdr() - Code.pc;
                 Code.put(Code.call);
                 Code.put2(offset);
-            } else if (termType.equals(MJTab.intType) && factorType.equals(MJTab.INT_ARRAY_TYPE)) {
-                int offset = MJTab.scalarTimesVecMethod.getAdr() - Code.pc;
+            } else if (termType.equals(Tab.intType) && factorType.equals(Tab.INT_ARRAY_TYPE)) {
+                int offset = Tab.scalarTimesVecMethod.getAdr() - Code.pc;
                 Code.put(Code.call);
                 Code.put2(offset);
             } else {
@@ -1328,14 +1327,14 @@ public class CodeGenerator extends VisitorAdaptor {
     public void visit(NewScalarFactor newScalarFactor) {
         Code.put(Code.new_);
         try {
-            Code.put2(MJUtils.sizeOfClassInstance(newScalarFactor.getType().obj.getType()));
+            Code.put2(Utils.sizeOfClassInstance(newScalarFactor.getType().obj.getType()));
         } catch (WrongStructKindException e1) {
             e1.printStackTrace();
         }
         if (newScalarFactor.getType().obj.getType().getKind() == Struct.Class) {
             try {
                 if (!InheritanceTree.getNode(newScalarFactor.obj).getVMT().isEmpty()) {
-                    Obj constObj = new Obj(Obj.Con, "", Tab.intType, newScalarFactor.getType().obj.getAdr(), 1);
+                    Obj constObj = new Obj(Obj.Con, "", rs.etf.pp1.symboltable.Tab.intType, newScalarFactor.getType().obj.getAdr(), 1);
                     Code.put(Code.dup);
                     Code.load(constObj);
                     Code.put(Code.putfield);

@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2018  Danijel Askov
- *
- * This file is part of MicroJava Compiler.
- *
- * MicroJava Compiler is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * MicroJava Compiler is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package o_project_compiler.methodsignature;
 
 import o_project_compiler.ast.ActParsEnd;
@@ -26,13 +7,9 @@ import o_project_compiler.ast.MemberAccessDesignator;
 import o_project_compiler.ast.MultipleExprExprList;
 import o_project_compiler.ast.SingleExprExprList;
 import o_project_compiler.ast.VisitorAdaptor;
-import o_project_compiler.mjsymboltable.MJTab;
+import o_project_compiler.mjsymboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 
-/**
- *
- * @author Danijel Askov
- */
 public class MethodSignatureGenerator extends VisitorAdaptor {
 
     private MethodSignature methodSignature;
@@ -44,15 +21,13 @@ public class MethodSignatureGenerator extends VisitorAdaptor {
 
     public void visit(IdentDesignator identDesignator) {
         if (methodSignature == null) {
-            Obj identDesignatorObj = identDesignator.obj;
-            methodSignature = new GlobalMethodSignature(identDesignatorObj.getName());
+            methodSignature = new GlobalMethodSignature(identDesignator.obj.getName());
         }
     }
 
     public void visit(MemberAccessDesignator memberAccessDesignator) {
         if (methodSignature == null) {
-            Obj identDesignatorObj = memberAccessDesignator.obj;
-            methodSignature = new ClassMethodSignature(identDesignatorObj.getName(),
+            methodSignature = new ClassMethodSignature(memberAccessDesignator.obj.getName(),
                     memberAccessDesignator.getDesignatorStart().obj.getType());
         }
     }
@@ -68,7 +43,7 @@ public class MethodSignatureGenerator extends VisitorAdaptor {
     public void visit(MultipleExprExprList multipleExprExprList) {
         if (level == 0) {
             methodSignature.addParameter(multipleExprExprList.getExpr().obj);
-            if (multipleExprExprList.getExpr().obj.getType() == MJTab.noType
+            if (multipleExprExprList.getExpr().obj.getType() == Tab.noType
                     && multipleExprExprList.getExpr().obj.getKind() != Obj.Meth) {
                 methodSignature.setContainsUndeclaredType();
             }
@@ -78,7 +53,7 @@ public class MethodSignatureGenerator extends VisitorAdaptor {
     public void visit(SingleExprExprList singleExprExprList) {
         if (level == 0) {
             methodSignature.addParameter(singleExprExprList.getExpr().obj);
-            if (singleExprExprList.getExpr().obj.getType() == MJTab.noType
+            if (singleExprExprList.getExpr().obj.getType() == Tab.noType
                     && singleExprExprList.getExpr().obj.getKind() != Obj.Meth) {
                 methodSignature.setContainsUndeclaredType();
             }
