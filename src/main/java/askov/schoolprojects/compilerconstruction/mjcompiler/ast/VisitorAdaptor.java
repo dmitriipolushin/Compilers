@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 9/0/2020 16:10:51
+// 14/2/2022 18:0:6
 
 
 package askov.schoolprojects.compilerconstruction.mjcompiler.ast;
@@ -46,32 +46,19 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(FormPars FormPars) { }
     public void visit(LocalVarDeclList LocalVarDeclList) { }
     public void visit(ProgramEnd ProgramEnd) { visit(); }
+    public void visit(Constructor Constructor) { visit(); }
     public void visit(MethodEnd MethodEnd) { visit(); }
     public void visit(DoWhileStatementStart DoWhileStatementStart) { visit(); }
     public void visit(Else Else) { visit(); }
     public void visit(ConditionEnd ConditionEnd) { visit(); }
-    public void visit(LeqRelop LeqRelop) { visit(); }
-    public void visit(LtRelop LtRelop) { visit(); }
-    public void visit(GeqRelop GeqRelop) { visit(); }
-    public void visit(GtRelop GtRelop) { visit(); }
-    public void visit(NeqRelop NeqRelop) { visit(); }
-    public void visit(EqRelop EqRelop) { visit(); }
     public void visit(RelOpCondFactor RelOpCondFactor) { visit(); }
     public void visit(ExprCondFactor ExprCondFactor) { visit(); }
-    public void visit(FactorCondTerm FactorCondTerm) { visit(); }
-    public void visit(AndCondTerm AndCondTerm) { visit(); }
-    public void visit(TermCondition TermCondition) { visit(); }
-    public void visit(OrCondition OrCondition) { visit(); }
     public void visit(ErrorCondition ErrorCondition) { visit(); }
     public void visit(CorrectCondition CorrectCondition) { visit(); }
     public void visit(ConditionStart ConditionStart) { visit(); }
     public void visit(ErrorExpr ErrorExpr) { visit(); }
     public void visit(CorrectExpr CorrectExpr) { visit(); }
-    public void visit(MinusAddop MinusAddop) { visit(); }
-    public void visit(PlusAddop PlusAddop) { visit(); }
-    public void visit(ModMulop ModMulop) { visit(); }
     public void visit(DivMulop DivMulop) { visit(); }
-    public void visit(TimesMulop TimesMulop) { visit(); }
     public void visit(ActParsEnd ActParsEnd) { visit(); }
     public void visit(SingleExprExprList SingleExprExprList) { visit(); }
     public void visit(MultipleExprExprList MultipleExprExprList) { visit(); }
@@ -89,7 +76,6 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(MulopTerm MulopTerm) { visit(); }
     public void visit(FactorTerm FactorTerm) { visit(); }
     public void visit(AddopExpr AddopExpr) { visit(); }
-    public void visit(MinusTermExpr MinusTermExpr) { visit(); }
     public void visit(TermExpr TermExpr) { visit(); }
     public void visit(ArrayElemAcessDesignatorLBracket ArrayElemAcessDesignatorLBracket) { visit(); }
     public void visit(MemberAccessDesignatorStart MemberAccessDesignatorStart) { visit(); }
@@ -109,8 +95,6 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(DoWhileStatement DoWhileStatement) { visit(); }
     public void visit(IfThenElseStatement IfThenElseStatement) { visit(); }
     public void visit(IfThenStatement IfThenStatement) { visit(); }
-    public void visit(DecrDesignatorStatement DecrDesignatorStatement) { visit(); }
-    public void visit(IncrDesignatorStatement IncrDesignatorStatement) { visit(); }
     public void visit(MethodCallDesignatorStatement MethodCallDesignatorStatement) { visit(); }
     public void visit(AssignmentDesignatorStatement AssignmentDesignatorStatement) { visit(); }
     public void visit(EmptyStatementList EmptyStatementList) { visit(); }

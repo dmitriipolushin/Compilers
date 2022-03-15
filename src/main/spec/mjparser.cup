@@ -194,15 +194,12 @@ terminal    PRINT;
 
 terminal    DOT;
 
-terminal    MINUS;
 
 terminal    NEW;
 
-terminal    TIMES;
 terminal    DIV;
 terminal    MOD;
 
-terminal    PLUS;
 
 terminal    OR;
 
@@ -239,7 +236,7 @@ DeclList              ::= (NonEmptyDeclList) DeclList Decl
 
 
 Decl                  ::= (ConstDecl) CONST Type ConstList SEMI
-                       |  (GlobalVarDecl) ErrorProneGlobalVarDecl 
+                       |  (GlobalVarDecl) ErrorProneGlobalVarDecl
                        |  (ClassDecl) CLASS ClassName ErrorProneSuperclass LBRACE FieldDeclList Methods RBRACE;
 
 Type                  ::= (Type) IDENT:ident;
@@ -252,10 +249,10 @@ Const                 ::= (Const) IDENT:ident ASSIGN Literal;
 Literal               ::= (IntLiteral) INT:value
                        |  (BoolLiteral) BOOL:value
                        |  (CharLiteral) CHAR:value;
-                     
+
 ErrorProneGlobalVarDecl ::= (VarDecl) Type GlobalVarList SEMI
                          |  (ErrorGlobalVarDecll) ErrorGlobalVarDecl SEMI;
-                         
+
 ErrorGlobalVarDecl    ::= (ErrorGlobalVarDecl) error
                           {:
                              Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
@@ -263,7 +260,7 @@ ErrorGlobalVarDecl    ::= (ErrorGlobalVarDecl) error
                              parser.report_error(null, null);
                           :};
 
-GlobalVarList         ::= (MultipleVarGlobalVarList) ErrorProneGlobalVar COMMA GlobalVarList 
+GlobalVarList         ::= (MultipleVarGlobalVarList) ErrorProneGlobalVar COMMA GlobalVarList
                        |  (SingleVarGlobalVarList) ErrorProneGlobalVar;
 
 ErrorProneGlobalVar   ::= (VectorGlobalVar) IDENT:ident LBRACKET RBRACKET
@@ -276,7 +273,7 @@ ErrorProneGlobalVar   ::= (VectorGlobalVar) IDENT:ident LBRACKET RBRACKET
                           :};
 
 ClassName             ::= (ClassName) IDENT:ident;
-                
+
 ErrorProneSuperclass  ::= (NonVoidSuperclass) EXTENDS Type
                        |  (VoidSuperclass) /* epsilon */
                        |  (ErrorSuperclass) EXTENDS error
@@ -313,7 +310,7 @@ Field                 ::= (VectorField) IDENT:ident LBRACKET RBRACKET
 
 Methods               ::= (NonVoidMethods) LBRACE MethodDeclList RBRACE
                        |  (VoidMethods) /* epsilon */;
-                
+
 MethodDeclList        ::= (NonEmptyMethodDeclList) MethodDeclList MethodDecl
                        |  (EmptyMethodDeclList) /* epsilon */;
                 
@@ -381,7 +378,6 @@ DesignatorStart       ::= (IdentDesignatorStart) IDENT:ident
 ArrayElemAcessDesignatorLBracket ::= (ArrayElemAcessDesignatorLBracket) LBRACKET;
 
 Expr                  ::= (TermExpr) Term
-                       |  (MinusTermExpr) MINUS Term
                        |  (AddopExpr) Expr Addop Term;
 // Leva rekurzija, jer se zahteva da Addop operatori (+ i -) budu levo ascoijativni
 
@@ -408,11 +404,7 @@ ExprList              ::= (MultipleExprExprList) Expr COMMA ExprList
 
 ActParsEnd            ::= (ActParsEnd) RPAREN:dummy;
 
-Mulop                 ::= (TimesMulop) TIMES
-                       |  (DivMulop) DIV;
-
-Addop                 ::= (PlusAddop) PLUS
-                       |  (MinusAddop) MINUS;
+Mulop                 ::= (DivMulop) DIV;
 
 ErrorProneExpr        ::= (CorrectExpr) Expr
                        |  (ErrorExpr) error

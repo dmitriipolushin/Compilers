@@ -65,11 +65,9 @@ Identifier = [a-zA-Z][a-zA-Z0-9_]*
     // this
 
 
-	
-	"plus"                    { return newSymbol(sym.PLUS); }
-	"minus"                    { return newSymbol(sym.MINUS); }
-	"times"                    { return newSymbol(sym.TIMES); }
-	"div"                    { return newSymbol(sym.DIV); }
+//	"minus"                    { return newSymbol(sym.MINUS); }
+//	"times"                    { return newSymbol(sym.TIMES); }
+//	"div"                    { return newSymbol(sym.DIV); }
 //	"%"                    { return newSymbol(sym.MOD); }
 //	"++"                   { return newSymbol(sym.INCR); }
 //	"--"                   { return newSymbol(sym.DECR); }
