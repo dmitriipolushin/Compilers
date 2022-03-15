@@ -1,7 +1,7 @@
 package askov.schoolprojects.compilerconstruction.mjcompiler;
 
 import java_cup.runtime.Symbol;
-import askov.schoolprojects.compilerconstruction.mjcompiler.loggers.LexicalErrorMJLogger;
+import LexicalErrorMJLogger;
 
 %%
 
