@@ -1,21 +1,4 @@
-/*
- * Copyright (C) 2018  Danijel Askov
- *
- * This file is part of MicroJava Compiler.
- *
- * MicroJava Compiler is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * MicroJava Compiler is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+
 
 package o_project_compiler.inheritancetree;
 
@@ -24,15 +7,12 @@ import java.util.List;
 
 import o_project_compiler.exceptions.WrongObjKindException;
 import o_project_compiler.exceptions.WrongStructKindException;
-import o_project_compiler.inheritancetree.visitor.InheritanceTreeVisitor;
+import o_project_compiler.inheritancetree.visitor.LeafNodeVisitor;
 import o_project_compiler.vmt.VMT;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
-/**
- *
- * @author Danijel Askov
- */
+
 public class InheritanceTreeNode {
 
     private final List<InheritanceTreeNode> children = new ArrayList<>();
@@ -63,26 +43,33 @@ public class InheritanceTreeNode {
     }
 
     public Obj getClss() {
+
         return clss;
     }
 
     public VMT getVMT() {
+
         return vmt;
     }
 
     public InheritanceTreeNode getParent() {
+
         return parent;
     }
 
     public List<InheritanceTreeNode> getChildren() {
+
         return children;
     }
 
     public boolean hasChildren() {
-        return children.size() != 0;
+        if (children.size() != 0) {
+            return true;
+        }
+        return false;
     }
 
-    public void accept(InheritanceTreeVisitor inheritanceTreeNodeVisitor) {
+    public void accept(LeafNodeVisitor inheritanceTreeNodeVisitor) {
         inheritanceTreeNodeVisitor.visit(this);
         for (InheritanceTreeNode child : children) {
             child.accept(inheritanceTreeNodeVisitor);

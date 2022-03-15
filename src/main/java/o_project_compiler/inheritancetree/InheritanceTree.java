@@ -1,21 +1,4 @@
-/*
- * Copyright (C) 2018  Danijel Askov
- *
- * This file is part of MicroJava Compiler.
- *
- * MicroJava Compiler is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * MicroJava Compiler is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+
 
 package o_project_compiler.inheritancetree;
 
@@ -27,10 +10,7 @@ import o_project_compiler.exceptions.WrongStructKindException;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
-/**
- *
- * @author Danijel Askov
- */
+
 public class InheritanceTree {
 
     public static final InheritanceTreeNode ROOT_NODE;
@@ -45,23 +25,27 @@ public class InheritanceTree {
         ROOT_NODE = root;
     }
 
-    private static final Map<Obj, InheritanceTreeNode> MAP = new HashMap<>();
+    private static final Map<Obj, InheritanceTreeNode> ObjNodeMap = new HashMap<>();
 
     public static boolean addNodeForClass(Obj clss) throws WrongObjKindException, WrongStructKindException {
-        if (MAP.containsKey(clss)) {
+        if (ObjNodeMap.containsKey(clss)) {
             return false;
         }
-        MAP.put(clss, new InheritanceTreeNode(clss));
-        return true;
+        else {
+            ObjNodeMap.put(clss, new InheritanceTreeNode(clss));
+            return true;
+        }
     }
 
-    public static boolean addNodeForClass(Obj subclass, Obj superclass)
+    public static boolean addNodeForClass(Obj childClass, Obj parentClass)
             throws WrongObjKindException, WrongStructKindException {
-        if (MAP.containsKey(subclass) || !MAP.containsKey(superclass)) {
+        if (ObjNodeMap.containsKey(childClass) || !ObjNodeMap.containsKey(parentClass)) {
             return false;
         }
-        MAP.put(subclass, new InheritanceTreeNode(subclass, MAP.get(superclass)));
-        return true;
+        else {
+            ObjNodeMap.put(childClass, new InheritanceTreeNode(childClass, ObjNodeMap.get(parentClass)));
+            return true;
+        }
     }
 
     public static InheritanceTreeNode getNode(Obj clss) throws WrongObjKindException, WrongStructKindException {
@@ -74,7 +58,7 @@ public class InheritanceTree {
         if (clss.getType().getKind() != Struct.Class) {
             throw new WrongStructKindException();
         }
-        return MAP.get(clss);
+        return ObjNodeMap.get(clss);
     }
 
 }
