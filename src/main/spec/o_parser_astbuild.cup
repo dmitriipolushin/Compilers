@@ -404,6 +404,8 @@ ErrorProneExpr        ::= (CorrectExpr) Expr:E1 {: RESULT=new CorrectExpr(E1); R
                           :} {: RESULT=new ErrorExpr(); :};
 
 ConditionStart        ::= (ConditionStart) {: RESULT=new ConditionStart(); :} /* epsilon */;
+
+Condition             ::=  (BoolCond) BOOL:value {: RESULT=new BoolCond(value); RESULT.setLine(valueleft); :};
                           
 ErrorProneCondition   ::= (CorrectCondition) Condition:C1 {: RESULT=new CorrectCondition(C1); RESULT.setLine(C1left); :}
                        |  (ErrorCondition) error

@@ -37,16 +37,23 @@ class TestChild extends Test {
         int retCh;
         int retCh2;
         Test test;
+        bool a;
         TestChild tch;
   {
           test = new Test;
+          a = false;
           tch = new TestChild;
           ret = test.returnZero();
           retCh = tch.returnZero();
           retCh2 = tch.returnFive();
-          print(ret);
-          print(retCh);
-          print(retCh2);
+
+
+           
+
+
+
+
+
 
   }
 

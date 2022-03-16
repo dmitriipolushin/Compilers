@@ -4,6 +4,7 @@ package o_project_compiler;
 import o_project_compiler.ast.VisitorAdaptor;
 import o_project_compiler.ast.PrintExprStatement;
 import o_project_compiler.ast.VectorGlobalVar;
+import o_project_compiler.ast.BoolCond;
 
 import o_project_compiler.ast.MultipleExprExprList;
 import o_project_compiler.ast.IdentDesignator;
@@ -663,6 +664,25 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
         returnStatementFound = true;
     }
+
+
+
+    @Override
+    public void visit(BoolCond boolCondFactor) {
+        if( boolCondFactor !=null){
+
+             Boolean boolValue = boolCondFactor.getValue();
+
+            if (boolValue.toString()!="false"||boolValue.toString()!="true") {
+                detectSemanticError(null, boolCondFactor, SemanticErrorKind.TYPE_MISMATCH, boolCondFactor.obj.getType(),
+                        Tab.BOOL_TYPE);
+            } else {
+                detectSemanticError();
+                detectErrors = false;
+            }}
+
+    }
+
 
 
     public void visit(ReturnExprStatement returnExprStatement) {

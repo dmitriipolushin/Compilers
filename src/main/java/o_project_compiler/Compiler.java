@@ -41,22 +41,23 @@ public class Compiler {
             return;
         }
         File sourceFile = new File(args[0]);
+
         if (!sourceFile.exists()) {
-            LOGGER.error("Source file \"" + sourceFile.getAbsolutePath() + "\" has not been found!");
+            LOGGER.error("File \"" + sourceFile.getAbsolutePath() + "\" is not  found");
             return;
         }
-        LOGGER.info("Compiling source file \"" + sourceFile.getAbsolutePath() + "\"...");
+        LOGGER.info("Compiling.... \"" + sourceFile.getAbsolutePath() + "\"...");
         try (BufferedReader br = new BufferedReader(new FileReader(sourceFile))) {
             Lexer lexer = new Lexer(br);
             Parser parser = new Parser(lexer);
             Symbol symbol = parser.parse();
 
             if (!parser.lexicalErrorDetected() && !parser.syntaxErrorDetected()) {
-                LOGGER.info("No syntax errors have been detected in \"" + sourceFile.getAbsolutePath() + "\"");
+                LOGGER.info("No syntax errors in \"" + sourceFile.getAbsolutePath() + "\"");
 
                 Program program = (Program) symbol.value;
 
-                LOGGER.info("Abstract syntax tree:\n" + program.toString(""));
+                LOGGER.info("AST:\n" + program.toString(""));
 
                 Tab.init();
                 SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();

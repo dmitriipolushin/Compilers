@@ -11,6 +11,7 @@ import o_project_compiler.ast.IfThenStatement;
 import o_project_compiler.ast.MethodCallDesignatorStatement;
 import o_project_compiler.ast.ExprCondFactor;
 import o_project_compiler.ast.BreakStatement;
+import o_project_compiler.ast.BoolCond;
 
 import o_project_compiler.ast.ContinueStatement;
 import o_project_compiler.ast.NewScalarFactor;
@@ -97,7 +98,7 @@ public class CodeGenerator extends VisitorAdaptor {
     private final Stack<Integer> currentSkipElseJump = new Stack<>();
     private final Stack<List<Integer>> currentBreakJumps = new Stack<>();
     private final Stack<List<Integer>> currentContinueJumps = new Stack<>();
-    private final Stack<List<Integer>> currentNextCondTerumps = new Stack<>();
+    private final Stack<List<Integer>> currentNextCondTermJumps  = new Stack<>();
     private final List<Integer> currentSkipNextCondTerumps = new ArrayList<>();
     private int currentConditionalJump = 0;
     private final Stack<Obj> thisParameterObjs = new Stack<>();
@@ -383,7 +384,7 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.put2(address, (start - address + 1));
         }
         currentSkipNextCondTerumps.clear();
-        for (int address : currentNextCondTerumps.pop()) {
+        for (int address : currentNextCondTermJumps.pop()) {
             Code.fixup(address);
         }
     }
@@ -405,7 +406,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
     public void visit(Else else_) {
         Code.putJump(0);
-        for (Integer address : currentNextCondTerumps.pop()) {
+        for (Integer address : currentNextCondTermJumps.pop()) {
             Code.fixup(address);
         }
         currentSkipElseJump.push(Code.pc - 2);
@@ -413,7 +414,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
 
     public void visit(IfThenStatement ifThenStatement) {
-        for (Integer address : currentNextCondTerumps.pop()) {
+        for (Integer address : currentNextCondTermJumps.pop()) {
             Code.fixup(address);
         }
     }
@@ -443,19 +444,19 @@ public class CodeGenerator extends VisitorAdaptor {
                 Code.fixup(address);
             }
         }
-        currentNextCondTerumps.push(new ArrayList<>());
+        currentNextCondTermJumps.push(new ArrayList<>());
     }
 
 
 
-    public void visit(ExprCondFactor exprCondFactor) {
+
+
+    @Override
+    public void visit(BoolCond boolCondFactor) {
         Code.load(new Obj(Obj.Con, "true", Tab.BOOL_TYPE, 1, 0));
         Code.putFalseJump(Code.eq, 0);
-        currentNextCondTerumps.peek().add(Code.pc - 2);
+        currentNextCondTermJumps.peek().add(Code.pc - 2);
     }
-
-
-
 
 
     public void visit(IdentDesignator identDesignator) {

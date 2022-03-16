@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2022 16:9:12
+// 16/2/2022 17:28:34
 
 
 package o_project_compiler.ast;
@@ -51,6 +51,7 @@ public interface Visitor {
     public void visit(ExprCondFactor ExprCondFactor);
     public void visit(ErrorCondition ErrorCondition);
     public void visit(CorrectCondition CorrectCondition);
+    public void visit(BoolCond BoolCond);
     public void visit(ConditionStart ConditionStart);
     public void visit(ErrorExpr ErrorExpr);
     public void visit(CorrectExpr CorrectExpr);

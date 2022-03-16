@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2022 16:9:12
+// 16/2/2022 17:28:34
 
 
 package o_project_compiler.ast;
@@ -51,6 +51,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ExprCondFactor ExprCondFactor) { visit(); }
     public void visit(ErrorCondition ErrorCondition) { visit(); }
     public void visit(CorrectCondition CorrectCondition) { visit(); }
+    public void visit(BoolCond BoolCond) { visit(); }
     public void visit(ConditionStart ConditionStart) { visit(); }
     public void visit(ErrorExpr ErrorExpr) { visit(); }
     public void visit(CorrectExpr CorrectExpr) { visit(); }

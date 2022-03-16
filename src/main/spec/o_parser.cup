@@ -404,6 +404,8 @@ ErrorProneExpr        ::= (CorrectExpr) Expr
                           :};
 
 ConditionStart        ::= (ConditionStart) /* epsilon */;
+
+Condition             ::=  (BoolCond) BOOL:value;
                           
 ErrorProneCondition   ::= (CorrectCondition) Condition
                        |  (ErrorCondition) error

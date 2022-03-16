@@ -5,27 +5,20 @@
 
 package o_project_compiler.ast;
 
-public class ArrayElemAcessDesignatorLBracket implements SyntaxNode {
+public class BoolCond extends Condition {
 
-    private SyntaxNode parent;
-    private int line;
-    public ArrayElemAcessDesignatorLBracket () {
+    private Boolean value;
+
+    public BoolCond (Boolean value) {
+        this.value=value;
     }
 
-    public SyntaxNode getParent() {
-        return parent;
+    public Boolean getValue() {
+        return value;
     }
 
-    public void setParent(SyntaxNode parent) {
-        this.parent=parent;
-    }
-
-    public int getLine() {
-        return line;
-    }
-
-    public void setLine(int line) {
-        this.line=line;
+    public void setValue(Boolean value) {
+        this.value=value;
     }
 
     public void accept(Visitor visitor) {
@@ -46,10 +39,13 @@ public class ArrayElemAcessDesignatorLBracket implements SyntaxNode {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ArrayElemAcessDesignatorLBracket(\n");
+        buffer.append("BoolCond(\n");
+
+        buffer.append(" "+tab+value);
+        buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [ArrayElemAcessDesignatorLBracket]");
+        buffer.append(") [BoolCond]");
         return buffer.toString();
     }
 }
