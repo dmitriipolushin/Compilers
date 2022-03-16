@@ -27,24 +27,24 @@ parser code {:
 
 	SyntaxErrorMJLogger syntaxErrorMJLogger = new SyntaxErrorMJLogger();
 	
-	@Override
+
 	public void syntax_error(Symbol cur_token) {
 	    report_error(null, cur_token);
 	}
 	
-	@Override
+
 	public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
 		syntaxErrorMJLogger.log(null, cur_token.left, null, SyntaxErrorMJLogger.SyntaxErrorKind.FATAL_ERROR);
 	    report_fatal_error(null, null);
 	}
 	
-	@Override
+
 	public void report_fatal_error(String message, Object info) throws java.lang.Exception {
 		fatalSyntaxErrorDetected = true;
 		done_parsing();
 	}
 
-	@Override
+
 	public void report_error(String message, Object info) {
 		syntaxErrorDetected = true;
 	}
@@ -161,7 +161,7 @@ terminal    LBRACE;
 
 terminal    String IDENT;
 
-terminal    CONST;
+
 terminal    SEMI;
 terminal    CLASS;
 terminal    String RBRACE; // Dummy atribut tipa String (videti objašnjenje u PRODUCTIONS delu).
@@ -223,7 +223,7 @@ precedence left ELSE;
 /*
  * Smene su navođene u poretku koji odgovara preorder obilasku sintaksnog stabla.
  * Atributi sa nazivom "dummy" uvedeni su, kao što im i ime sugeriše, ne zbog potrebe da se koristi njihova vrednost,
- * već da bi se mogao zapamtiti u odgavarajucem sintaksnom čvoru broj linije, u izvornom fajlu MikroJava programa, koja sadrži odgovarajući neterminal.
+ * već da bi se mogao zapamtiti u odgavarajucem sintaksnom �?voru broj linije, u izvornom fajlu MikroJava programa, koja sadrži odgovarajući neterminal.
  */
 
 Program               ::= (Program) PROGRAM ProgramName:P1 DeclList:D2 LBRACE MethodDeclList:M3 ProgramEnd:P4 {: RESULT=new Program(P1, D2, M3, P4); RESULT.setLine(P1left); :};
@@ -235,8 +235,7 @@ DeclList              ::= (NonEmptyDeclList) DeclList:D1 Decl:D2 {: RESULT=new N
                        |  (EmptyDeclList) {: RESULT=new EmptyDeclList(); :} /* epsilon */;
 
 
-Decl                  ::= (ConstDecl) CONST Type:T1 ConstList:C2 SEMI {: RESULT=new ConstDecl(T1, C2); RESULT.setLine(T1left); :}
-                       |  (GlobalVarDecl) ErrorProneGlobalVarDecl:E1 {: RESULT=new GlobalVarDecl(E1); RESULT.setLine(E1left); :}
+Decl                  ::=   (GlobalVarDecl) ErrorProneGlobalVarDecl:E1 {: RESULT=new GlobalVarDecl(E1); RESULT.setLine(E1left); :}
                        |  (ClassDecl) CLASS ClassName:C1 ErrorProneSuperclass:E2 LBRACE FieldDeclList:F3 Methods:M4 RBRACE:R5 {: RESULT=new ClassDecl(C1, E2, F3, M4, R5); RESULT.setLine(C1left); :};
 
 Type                  ::= (Type) IDENT:ident {: RESULT=new Type(ident); RESULT.setLine(identleft); :};

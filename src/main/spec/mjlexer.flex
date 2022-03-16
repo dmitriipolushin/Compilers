@@ -56,8 +56,7 @@ Identifier = [a-zA-Z][a-zA-Z0-9_]*
 	"do"                   { return newSymbol(sym.DO); }
 	"while"                { return newSymbol(sym.WHILE); }
 	"extends"              { return newSymbol(sym.EXTENDS);}
-	"continue"             { return newSymbol(sym.CONTINUE); }
-	"const"                { return newSymbol(sym.CONST); }
+
 
     "this"               {return newSymbol(sym.THIS); }
 

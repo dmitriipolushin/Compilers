@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 14/2/2022 18:0:6
+// 15/2/2022 17:14:39
 
 
 package askov.schoolprojects.compilerconstruction.mjcompiler.ast;
@@ -153,7 +153,6 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(Type Type) { visit(); }
     public void visit(ClassDecl ClassDecl) { visit(); }
     public void visit(GlobalVarDecl GlobalVarDecl) { visit(); }
-    public void visit(ConstDecl ConstDecl) { visit(); }
     public void visit(EmptyDeclList EmptyDeclList) { visit(); }
     public void visit(NonEmptyDeclList NonEmptyDeclList) { visit(); }
     public void visit(ProgramName ProgramName) { visit(); }

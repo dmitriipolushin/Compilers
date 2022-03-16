@@ -98,7 +98,7 @@ public class VMT {
         destinationWord.setAdr(startAddress);
     }
 
-    @Override
+
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("VMT {\n");
         int i = 1;

@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 14/2/2022 18:0:6
+// 15/2/2022 17:14:39
 
 
 package askov.schoolprojects.compilerconstruction.mjcompiler.ast;
@@ -153,7 +153,6 @@ public interface Visitor {
     public void visit(Type Type);
     public void visit(ClassDecl ClassDecl);
     public void visit(GlobalVarDecl GlobalVarDecl);
-    public void visit(ConstDecl ConstDecl);
     public void visit(EmptyDeclList EmptyDeclList);
     public void visit(NonEmptyDeclList NonEmptyDeclList);
     public void visit(ProgramName ProgramName);

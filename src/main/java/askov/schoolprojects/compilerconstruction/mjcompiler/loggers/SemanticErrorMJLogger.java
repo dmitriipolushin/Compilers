@@ -40,7 +40,7 @@ public class SemanticErrorMJLogger extends MJLogger<Obj> {
         super(MJLoggerKind.ERROR_LOGER, "Semantic error");
     }
 
-    @Override
+
     protected String messageBody(Obj obj, Object... context) {
         SemanticErrorKind semanticErrorKind = (SemanticErrorKind) context[0];
         String message = null;

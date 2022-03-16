@@ -35,7 +35,7 @@ public class VMTStartAddressGenerator implements InheritanceTreeVisitor {
         this.firstVMTStartAddress = currentVMTStartAddress = firstVMTStartAddress;
     }
 
-    @Override
+
     public void visit(InheritanceTreeNode node) {
         VMT vmt = node.getVMT();
         vmt.setStartAddress(currentVMTStartAddress);

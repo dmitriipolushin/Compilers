@@ -59,7 +59,7 @@ public class VMTCreator implements InheritanceTreeVisitor {
         }
     }
 
-    @Override
+
     public void visit(InheritanceTreeNode node) {
         if (!node.equals(InheritanceTree.ROOT_NODE)) {
             for (Obj member : node.getClss().getType().getMembers()) {

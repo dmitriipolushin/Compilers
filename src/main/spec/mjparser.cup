@@ -27,24 +27,24 @@ parser code {:
 
 	SyntaxErrorMJLogger syntaxErrorMJLogger = new SyntaxErrorMJLogger();
 	
-	@Override
+
 	public void syntax_error(Symbol cur_token) {
 	    report_error(null, cur_token);
 	}
 	
-	@Override
+
 	public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
 		syntaxErrorMJLogger.log(null, cur_token.left, null, SyntaxErrorMJLogger.SyntaxErrorKind.FATAL_ERROR);
 	    report_fatal_error(null, null);
 	}
 	
-	@Override
+
 	public void report_fatal_error(String message, Object info) throws java.lang.Exception {
 		fatalSyntaxErrorDetected = true;
 		done_parsing();
 	}
 
-	@Override
+
 	public void report_error(String message, Object info) {
 		syntaxErrorDetected = true;
 	}
@@ -161,7 +161,7 @@ terminal    LBRACE;
 
 terminal    String IDENT;
 
-terminal    CONST;
+
 terminal    SEMI;
 terminal    CLASS;
 terminal    String RBRACE; // Dummy atribut tipa String (videti objašnjenje u PRODUCTIONS delu).
@@ -235,8 +235,7 @@ DeclList              ::= (NonEmptyDeclList) DeclList Decl
                        |  (EmptyDeclList) /* epsilon */;
 
 
-Decl                  ::= (ConstDecl) CONST Type ConstList SEMI
-                       |  (GlobalVarDecl) ErrorProneGlobalVarDecl
+Decl                  ::=   (GlobalVarDecl) ErrorProneGlobalVarDecl
                        |  (ClassDecl) CLASS ClassName ErrorProneSuperclass LBRACE FieldDeclList Methods RBRACE;
 
 Type                  ::= (Type) IDENT:ident;

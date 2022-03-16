@@ -331,7 +331,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                 || method == MJTab.lenMethod || method == MJTab.ordMethod;
     }
 
-    @Override
+
     public void visit(ProgramName programName) {
         String programIdent = programName.getIdent();
 
@@ -349,7 +349,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentScopeType = ScopeType.PROGRAM;
     }
 
-    @Override
+
     public void visit(ProgramEnd programEnd) {
         Obj mainObj = findInCurrentScope(MAIN); // Pretražuje se PROGRAM opseg.
 
@@ -360,7 +360,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentScopeType = ScopeType.UNIVERSE;
     }
 
-    @Override
+
     public void visit(Program program) {
         staticVarsCount = MJTab.currentScope().getnVars();
 
@@ -369,7 +369,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         MJTab.closeScope();
     }
 
-    @Override
+
     public void visit(Type type) {
         String typeIdent = type.getIdent();
 
@@ -385,28 +385,28 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentType = type.obj.getType();
     }
 
-    @Override
+
     public void visit(NonVoidReturnType nonVoidReturnType) {
         currentMethodReturnType = nonVoidReturnType.getType().obj.getType();
         voidMethod = false;
     }
 
-    @Override
+
     public void visit(IntLiteral intLiteral) {
         intLiteral.obj = new Obj(Obj.Con, "", MJTab.intType, intLiteral.getValue(), 0);
     }
 
-    @Override
+
     public void visit(CharLiteral charLiteral) {
         charLiteral.obj = new Obj(Obj.Con, "", MJTab.charType, charLiteral.getValue(), 0);
     }
 
-    @Override
+
     public void visit(BoolLiteral boolLiteral) {
         boolLiteral.obj = new Obj(Obj.Con, "", MJTab.BOOL_TYPE, boolLiteral.getValue() ? 1 : 0, 0);
     }
 
-    @Override
+
     public void visit(Const constant) {
         String constantIdent = constant.getIdent();
 
@@ -437,7 +437,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(ScalarGlobalVar scalarGlobalVar) {
         String varIdent = scalarGlobalVar.getIdent();
         Obj varObj = findInCurrentScope(varIdent);
@@ -449,7 +449,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(ScalarField scalarField) {
         String fieldIdent = scalarField.getIdent();
         Obj fieldObj = findInCurrentScope(fieldIdent);
@@ -462,7 +462,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(ScalarLocalVar scalarLocalVar) {
         String varIdent = scalarLocalVar.getIdent();
         Obj localVarObj = findInCurrentScope(varIdent);
@@ -474,7 +474,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(VectorGlobalVar vectorGlobalVar) {
         String varIdent = vectorGlobalVar.getIdent();
         Obj varObj = findInCurrentScope(varIdent);
@@ -486,7 +486,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(VectorField vectorField) {
         String fieldIdent = vectorField.getIdent();
         Obj fieldObj = findInCurrentScope(fieldIdent);
@@ -499,7 +499,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(VectorLocalVar vectorLocalVar) {
         String varIdent = vectorLocalVar.getIdent();
         Obj varObj = findInCurrentScope(varIdent);
@@ -511,7 +511,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(ClassName className) {
         String classIdent = className.getIdent();
 
@@ -529,7 +529,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentScopeType = ScopeType.CLASS;
     }
 
-    @Override
+
     public void visit(NonVoidSuperclass nonVoidSuperclass) {
         Struct superclassType = nonVoidSuperclass.getType().obj.getType();
         if (superclassType != MJTab.noType) {
@@ -550,7 +550,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(VoidSuperclass voidSuperclass) {
         MJTab.insert(Obj.Fld, VMT_POINTER, MJTab.intType);
         MJTab.insert(Obj.Fld, CLASS_ID, MJTab.intType);
@@ -562,7 +562,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(ClassDecl classDecl) {
         MJTab.chainLocalSymbols(classDecl.getClassName().obj.getType());
 
@@ -572,7 +572,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentClassObj = MJTab.noObj;
     }
 
-    @Override
+
     public void visit(VoidFormPars voidFormPars) {
         if (formParCounter == 0 && currentScopeType == ScopeType.CLASS_METHOD) {
             MJTab.insert(Obj.Var, THIS, currentClassObj.getType());
@@ -581,12 +581,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentMethodObj.setLevel(formParCounter);
     }
 
-    @Override
+
     public void visit(NonVoidFormPars nonVoidFormPars) {
         currentMethodObj.setLevel(formParCounter);
     }
 
-    @Override
+
     public void visit(ScalarFormPar scalarFormPar) {
         if (formParCounter == 0 && currentScopeType == ScopeType.CLASS_METHOD) {
             MJTab.insert(Obj.Var, THIS, currentClassObj.getType());
@@ -605,7 +605,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(VectorFormPar vectorFormPar) {
         if (formParCounter == 0 && currentScopeType == ScopeType.CLASS_METHOD) {
             MJTab.insert(Obj.Var, THIS, currentClassObj.getType());
@@ -625,13 +625,13 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(VoidReturnType voidReturnType) {
         currentMethodReturnType = MJTab.noType;
         voidMethod = true;
     }
 
-    @Override
+
     public void visit(MethodName methodName) {
         String methodIdent = methodName.getIdent();
 
@@ -655,12 +655,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         formParCounter = 0;
     }
 
-    @Override
+
     public void visit(MethodBodyStart methodBodyStart) {
         MJTab.chainLocalSymbols(currentMethodObj);
     }
 
-    @Override
+
     public void visit(MethodDecl methodDecl) {
         String methodIdent = methodDecl.getMethodName().getIdent();
 
@@ -682,7 +682,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentScopeType = (currentScopeType == ScopeType.GLOBAL_METHOD) ? ScopeType.PROGRAM : ScopeType.CLASS;
     }
 
-    @Override
+
     public void visit(ReturnNothingStatement returnNothingStatement) {
         if (!voidMethod) {
             if (!currentMethodObj.getType().equals(MJTab.noType)
@@ -695,7 +695,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         returnStatementFound = true;
     }
 
-    @Override
+
     public void visit(ReturnExprStatement returnExprStatement) {
         returnStatementFound = true;
         if (voidMethod) {
@@ -717,7 +717,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(MethodEnd methodEnd) {
         if (!voidMethod && !returnStatementFound) {
             if (!currentMethodObj.getType().equals(MJTab.noType)
@@ -730,12 +730,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         returnStatementFound = false;
     }
 
-    @Override
+
     public void visit(NonEmptyStatementList nonEmptyStatementList) {
         detectErrors = true;
     }
 
-    @Override
+
     public void visit(AssignmentDesignatorStatement assignmentDesignatorStatement) {
         Obj exprObj = ((CorrectExpr) assignmentDesignatorStatement.getErrorProneExpr()).getExpr().obj;
         Struct exprStruct = exprObj.getType();
@@ -756,7 +756,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(MethodCallDesignatorStatement methodCallDesignatorStatement) {
         Obj methodObj = methodCallDesignatorStatement.getDesignator().obj;
 
@@ -818,7 +818,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(IncrDesignatorStatement incrDesignatorStatement) {
         Struct designatorType = incrDesignatorStatement.getDesignator().obj.getType();
         if (!designatorType.equals(MJTab.intType)) {
@@ -832,7 +832,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(DecrDesignatorStatement decrDesignatorStatement) {
         Struct designatorType = decrDesignatorStatement.getDesignator().obj.getType();
         if (!designatorType.equals(MJTab.intType)) {
@@ -847,31 +847,31 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(DoWhileStatementStart doWhileStatementStart) {
         doWhileStatementCount++;
     }
 
-    @Override
+
     public void visit(DoWhileStatement doWhileStatement) {
         doWhileStatementCount--;
     }
 
-    @Override
+
     public void visit(BreakStatement breakStatement) {
         if (doWhileStatementCount <= 0) {
             detectSemanticError(null, breakStatement, SemanticErrorKind.MISPLACED_BREAK);
         }
     }
 
-    @Override
+
     public void visit(ContinueStatement continueStatement) {
         if (doWhileStatementCount <= 0) {
             detectSemanticError(null, continueStatement, SemanticErrorKind.MISPLACED_CONTINUE);
         }
     }
 
-    @Override
+
     public void visit(ReadStatement readStatement) {
         Struct designatorType = readStatement.getDesignator().obj.getType();
         if (designatorType.equals(MJTab.BOOL_TYPE)) {
@@ -888,7 +888,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(PrintExprStatement printExprStatement) {
         Struct exprType = printExprStatement.getExpr().obj.getType();
         if (exprType.equals(MJTab.BOOL_TYPE)) {
@@ -905,7 +905,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(PrintExprIntConstStatement printExprIntConstStatement) {
         Struct exprType = printExprIntConstStatement.getExpr().obj.getType();
         if (exprType.equals(MJTab.BOOL_TYPE)) {
@@ -922,17 +922,17 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(MultipleExprExprList multipleExprExprList) {
         detectErrors = true;
     }
 
-    @Override
+
     public void visit(CorrectCondition correctCondition) {
         detectErrors = true;
     }
 
-    @Override
+
     public void visit(OrCondition orCondition) {
         Obj condObj = orCondition.getCondition().obj;
         Struct condType = condObj.getType();
@@ -950,12 +950,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(TermCondition termCondition) {
         termCondition.obj = termCondition.getCondTerm().obj;
     }
 
-    @Override
+
     public void visit(AndCondTerm andCondTerm) {
         Struct termType = andCondTerm.getCondTerm().obj.getType();
         Struct factorType = andCondTerm.getCondFactor().obj.getType();
@@ -971,12 +971,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(FactorCondTerm factorCondTerm) {
         factorCondTerm.obj = factorCondTerm.getCondFactor().obj;
     }
 
-    @Override
+
     public void visit(ExprCondFactor exprCondFactor) {
         exprCondFactor.obj = exprCondFactor.getExpr().obj;
         if (!exprCondFactor.obj.getType().equals(MJTab.BOOL_TYPE)) {
@@ -990,7 +990,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(RelOpCondFactor relOpCondFactor) {
         relOpCondFactor.obj = new Obj(Obj.Var, "", MJTab.BOOL_TYPE);
         Obj exprObj = relOpCondFactor.getExpr().obj;
@@ -1031,12 +1031,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(TermExpr termExpr) {
         termExpr.obj = termExpr.getTerm().obj;
     }
 
-    @Override
+
     public void visit(MinusTermExpr minusTermExpr) {
         Struct termType = minusTermExpr.getTerm().obj.getType();
         if (!termType.equals(MJTab.intType)) {
@@ -1050,7 +1050,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(AddopExpr addopExpr) {
         Struct exprType = addopExpr.getExpr().obj.getType();
         Struct termType = addopExpr.getTerm().obj.getType();
@@ -1075,7 +1075,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(FactorTerm factorTerm) {
         factorTerm.obj = factorTerm.getFactor().obj;
         if (factorTerm.obj.getType() == MJTab.noType && factorTerm.obj.getKind() != Obj.Meth) {
@@ -1083,7 +1083,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(MulopTerm mulopTerm) {
         Obj termObj = mulopTerm.getTerm().obj;
         Struct termType = termObj.getType();
@@ -1120,12 +1120,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(DesignatorFactor designatorFactor) {
         designatorFactor.obj = designatorFactor.getDesignator().obj;
     }
 
-    @Override
+
     public void visit(MethodCallFactor methodCallFactor) {
         Obj methodObj = methodCallFactor.getDesignator().obj;
 
@@ -1188,22 +1188,22 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         methodCallFactor.obj = methodObj;
     }
 
-    @Override
+
     public void visit(IntFactor intFactor) {
         intFactor.obj = new Obj(Obj.Con, "", MJTab.intType, intFactor.getValue(), 1);
     }
 
-    @Override
+
     public void visit(CharFactor charFactor) {
         charFactor.obj = new Obj(Obj.Con, "", MJTab.charType, charFactor.getValue(), 1);
     }
 
-    @Override
+
     public void visit(BoolFactor boolFactor) {
         boolFactor.obj = new Obj(Obj.Con, "", MJTab.BOOL_TYPE, boolFactor.getValue() ? 1 : 0, 1);
     }
 
-    @Override
+
     public void visit(NewScalarFactor newScalarFactor) {
         newScalarFactor.obj = newScalarFactor.getType().obj;
         if (newScalarFactor.obj.getType().getKind() == Struct.Class) {
@@ -1211,17 +1211,17 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(NewVectorFactor newVectorFactor) {
         newVectorFactor.obj = new Obj(Obj.Var, "", new Struct(Struct.Array, newVectorFactor.getType().obj.getType()));
     }
 
-    @Override
+
     public void visit(DelimitedFactor delimitedFactor) {
         delimitedFactor.obj = delimitedFactor.getExpr().obj;
     }
 
-    @Override
+
     public void visit(IdentDesignator identDesignator) {
         String identDesignatorIdent = identDesignator.getIdent();
         Obj identObj;
@@ -1256,7 +1256,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(ArrayElemAccessDesignator arrayElemAcessDesignator) {
         Obj array = arrayElemAcessDesignator.getDesignatorStart().obj;
         if (array.getType().getKind() != Struct.Array) {
@@ -1279,7 +1279,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         symbolUsageMJLogger.log(array, arrayElemAcessDesignator.getLine(), null, array);
     }
 
-    @Override
+
     public void visit(MemberAccessDesignator memberAccessDesignator) {
         String memberName = memberAccessDesignator.getIdent();
 
@@ -1314,7 +1314,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    @Override
+
     public void visit(IdentDesignatorStart identDesignatorStart) {
         String identDesignatorStartIdent = identDesignatorStart.getIdent();
         Obj identObj;
@@ -1335,7 +1335,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         identDesignatorStart.obj = identObj;
     }
 
-    @Override
+
     public void visit(ArrayElemAccessDesignatorStart arrayElemAcessDesignatorStart) {
         Obj array = arrayElemAcessDesignatorStart.getDesignatorStart().obj;
         if (array.getType().getKind() != Struct.Array) {
@@ -1358,7 +1358,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         symbolUsageMJLogger.log(array, arrayElemAcessDesignatorStart.getLine(), null, array);
     }
 
-    @Override
+
     public void visit(MemberAccessDesignatorStart memberAccessDesignatorStart) {
         String memberName = memberAccessDesignatorStart.getIdent();
 

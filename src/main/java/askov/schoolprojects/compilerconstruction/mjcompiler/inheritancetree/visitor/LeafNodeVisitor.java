@@ -28,7 +28,7 @@ public class LeafNodeVisitor implements InheritanceTreeVisitor {
 
     public List<InheritanceTreeNode> leafNodes = new ArrayList<>();
 
-    @Override
+
     public void visit(InheritanceTreeNode node) {
         if (!node.hasChildren()) {
             leafNodes.add(node);

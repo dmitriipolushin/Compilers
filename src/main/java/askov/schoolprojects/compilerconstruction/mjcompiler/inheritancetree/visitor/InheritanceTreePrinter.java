@@ -25,7 +25,7 @@ public class InheritanceTreePrinter implements InheritanceTreeVisitor {
 
     private StringBuilder stringBuilder = new StringBuilder();
 
-    @Override
+
     public void visit(InheritanceTreeNode node) {
         stringBuilder.append("InheritanceTreeNode (" + node.getClss().getName()
                 + (node.getParent() != null ? " extends " + node.getParent().getClss().getName() : "") + ") : ");

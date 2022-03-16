@@ -47,7 +47,7 @@ public class ClassMethodSignature extends MethodSignature {
         return clss;
     }
 
-    @Override
+
     public String toString() {
         return clss != MJTab.noType ? MJUtils.typeToString(clss) + "." + super.toString() : super.toString();
     }

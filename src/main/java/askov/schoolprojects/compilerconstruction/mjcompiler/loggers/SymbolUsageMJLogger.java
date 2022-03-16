@@ -36,7 +36,7 @@ public final class SymbolUsageMJLogger extends MJLogger<Obj> {
         super(MJLoggerKind.INFO_LOGGER, "Symbol usage");
     }
 
-    @Override
+
     protected String messageBody(Obj obj, Object... context) {
         String message = null;
 

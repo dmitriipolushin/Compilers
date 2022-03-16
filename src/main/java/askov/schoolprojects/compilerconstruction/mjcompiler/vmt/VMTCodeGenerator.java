@@ -28,7 +28,7 @@ import askov.schoolprojects.compilerconstruction.mjcompiler.inheritancetree.visi
  */
 public class VMTCodeGenerator implements InheritanceTreeVisitor {
 
-    @Override
+
     public void visit(InheritanceTreeNode node) {
         node.getVMT().generateCreationCode();
     }

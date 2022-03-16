@@ -27,24 +27,24 @@ parser code {:
 
 	SyntaxErrorMJLogger syntaxErrorMJLogger = new SyntaxErrorMJLogger();
 
-	@Override
+
 	public void syntax_error(Symbol cur_token) {
 	    report_error(null, cur_token);
 	}
 
-	@Override
+
 	public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
 		syntaxErrorMJLogger.log(null, cur_token.left, null, SyntaxErrorMJLogger.SyntaxErrorKind.FATAL_ERROR);
 	    report_fatal_error(null, null);
 	}
 
-	@Override
+
 	public void report_fatal_error(String message, Object info) throws java.lang.Exception {
 		fatalSyntaxErrorDetected = true;
 		done_parsing();
 	}
 
-	@Override
+
 	public void report_error(String message, Object info) {
 		syntaxErrorDetected = true;
 	}

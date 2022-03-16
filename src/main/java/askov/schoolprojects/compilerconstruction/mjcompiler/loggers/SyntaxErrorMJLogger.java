@@ -35,7 +35,7 @@ public class SyntaxErrorMJLogger extends MJLogger<Symbol> {
         super(MJLoggerKind.ERROR_LOGER, "Syntax error");
     }
 
-    @Override
+
     protected String messageBody(Symbol loggedObject, Object... context) {
         SyntaxErrorKind syntaxErrorKind = (SyntaxErrorKind) context[0];
         String message = null;

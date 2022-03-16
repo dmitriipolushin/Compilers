@@ -89,7 +89,7 @@ public abstract class MethodSignature {
         }
     }
 
-    @Override
+
     public boolean equals(Object object) {
         if (super.equals(object)) {
             return true;
@@ -157,7 +157,7 @@ public abstract class MethodSignature {
         return methodName + (compactParameterList != null ? compactParameterList : "");
     }
 
-    @Override
+
     public String toString() {
         return getSignature();
     }

@@ -41,7 +41,7 @@ public class MJDumpSymbolTableVisitor extends DumpSymbolTableVisitor {
         this.newLineEnabled = newLineEnabled;
     }
 
-    @Override
+
     public void visitObjNode(Obj objToVisit) {
         if (currentScopeType == ScopeType.PROGRAM) {
             output.append(indent.toString());
@@ -156,7 +156,7 @@ public class MJDumpSymbolTableVisitor extends DumpSymbolTableVisitor {
 
     }
 
-    @Override
+
     public void visitStructNode(Struct structToVisit) {
         switch (structToVisit.getKind()) {
             case Struct.None:
@@ -202,7 +202,7 @@ public class MJDumpSymbolTableVisitor extends DumpSymbolTableVisitor {
         }
     }
 
-    @Override
+
     public void visitScopeNode(Scope scope) {
         for (Obj o : scope.values()) {
             o.accept(this);
