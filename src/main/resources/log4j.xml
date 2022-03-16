@@ -15,7 +15,7 @@
 	</appender>
 
 	<appender name="file_all" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="logs/mj_all.log"></param>
+		<param name="file" value="logs/_all.log"></param>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p %d{ABSOLUTE} - %m%n"></param>
 		</layout>
@@ -23,7 +23,7 @@
 	
 	<appender name="file_err" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="threshold" value="warn" />
-		<param name="file" value="logs/mj_error.log"></param>
+		<param name="file" value="logs/_error.log"></param>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p %d{ABSOLUTE} - %m%n"></param>
 		</layout>
@@ -31,7 +31,7 @@
 	
 	<appender name="file_info" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="threshold" value="info" />
-		<param name="file" value="logs/mj_info.log"></param>
+		<param name="file" value="logs/_info.log"></param>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p %d{ABSOLUTE} - %m%n"></param>
 		</layout>
