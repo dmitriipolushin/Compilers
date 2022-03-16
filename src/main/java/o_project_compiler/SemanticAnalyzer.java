@@ -50,7 +50,7 @@ import o_project_compiler.ast.VectorLocalVar;
 import o_project_compiler.ast.NonVoidReturnType;
 import o_project_compiler.ast.TermExpr;
 
-import o_project_compiler.ast.ArrayElemAccessDesignatorStart;
+
 import o_project_compiler.ast.CorrectCondition;
 import o_project_compiler.ast.ProgramEnd;
 import o_project_compiler.ast.NonVoidSuperclass;
@@ -67,7 +67,7 @@ import o_project_compiler.ast.BoolFactor;
 
 import o_project_compiler.ast.Type;
 import o_project_compiler.ast.VoidSuperclass;
-import o_project_compiler.ast.ArrayElemAccessDesignator;
+
 import o_project_compiler.ast.CharFactor;
 import o_project_compiler.ast.IntFactor;
 import o_project_compiler.ast.ProgramName;
@@ -305,7 +305,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(ProgramName programName) {
         String programIdent = programName.getIdent();
 
-        Obj progObj = findInCurrentScope(programIdent); // Pretražuje se UNIVERSE opseg.
+        Obj progObj = findInCurrentScope(programIdent);
 
         if (progObj == rs.etf.pp1.symboltable.Tab.noObj) {
             programName.obj = Tab.insert(Obj.Prog, programIdent, Tab.noType);
@@ -1057,26 +1057,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
 
-    public void visit(ArrayElemAccessDesignator arrayElemAcessDesignator) {
-        Obj array = arrayElemAcessDesignator.getDesignatorStart().obj;
-        if (array.getType().getKind() != Struct.Array) {
-            if (!array.getType().equals(Tab.noType)) {
-                detectSemanticError(null, arrayElemAcessDesignator, SemanticErrorKind.INDEXING_NON_ARRAY,
-                        array.getType());
-            } else {
-                detectSemanticError();
-            }
-            arrayElemAcessDesignator.obj = Tab.noObj;
-        } else {
-            Struct indexType = arrayElemAcessDesignator.getExpr().obj.getType();
-            if (!indexType.equals(Tab.intType)) {
-                detectSemanticError(null, arrayElemAcessDesignator, SemanticErrorKind.TYPE_MISMATCH, indexType,
-                        Tab.intType);
-            }
-            arrayElemAcessDesignator.obj = new Obj(Obj.Elem, "",
-                    array.getType().getElemType() != null ? array.getType().getElemType() : Tab.noType);
-        }
-    }
+
 
 
     public void visit(MemberAccessDesignator memberAccessDesignator) {
@@ -1129,26 +1110,6 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
 
-    public void visit(ArrayElemAccessDesignatorStart arrayElemAcessDesignatorStart) {
-        Obj array = arrayElemAcessDesignatorStart.getDesignatorStart().obj;
-        if (array.getType().getKind() != Struct.Array) {
-            if (!array.getType().equals(Tab.noType)) {
-                detectSemanticError(null, arrayElemAcessDesignatorStart, SemanticErrorKind.INDEXING_NON_ARRAY,
-                        array.getType());
-            } else {
-                detectSemanticError();
-            }
-            arrayElemAcessDesignatorStart.obj = Tab.noObj;
-        } else {
-            Struct indexType = arrayElemAcessDesignatorStart.getExpr().obj.getType();
-            if (!indexType.equals(Tab.intType)) {
-                detectSemanticError(null, arrayElemAcessDesignatorStart, SemanticErrorKind.TYPE_MISMATCH, indexType,
-                        Tab.intType);
-            }
-            arrayElemAcessDesignatorStart.obj = new Obj(Obj.Elem, "",
-                    array.getType().getElemType() != null ? array.getType().getElemType() : Tab.noType);
-        }
-    }
 
 
     public void visit(MemberAccessDesignatorStart memberAccessDesignatorStart) {

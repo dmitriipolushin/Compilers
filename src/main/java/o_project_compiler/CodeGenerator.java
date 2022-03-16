@@ -33,8 +33,6 @@ import o_project_compiler.ast.DoWhileStatement;
 import o_project_compiler.ast.ClassDecl;
 
 import o_project_compiler.ast.ConditionStart;
-import o_project_compiler.ast.ArrayElemAccessDesignatorStart;
-import o_project_compiler.ast.ArrayElemAcessDesignatorLBracket;
 
 import o_project_compiler.ast.DesignatorFactor;
 
@@ -44,7 +42,7 @@ import o_project_compiler.ast.BoolFactor;
 
 
 import o_project_compiler.ast.CharFactor;
-import o_project_compiler.ast.ArrayElemAccessDesignator;
+
 import o_project_compiler.ast.IntFactor;
 
 import o_project_compiler.ast.DoWhileStatementStart;
@@ -488,12 +486,7 @@ public class CodeGenerator extends VisitorAdaptor {
     }
 
 
-    public void visit(ArrayElemAcessDesignatorLBracket arrAcessDesignatorLBracket) {
-        SyntaxNode parent = arrAcessDesignatorLBracket.getParent();
-        Code.load((parent instanceof ArrayElemAccessDesignator)
-                ? ((ArrayElemAccessDesignator) parent).getDesignatorStart().obj
-                : ((ArrayElemAccessDesignatorStart) parent).getDesignatorStart().obj);
-    }
+
 
 
     public void visit(MemberAccessDesignator memberAccessDesignator) {

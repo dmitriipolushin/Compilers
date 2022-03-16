@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2022 17:28:34
+// 16/2/2022 22:28:35
 
 
 package o_project_compiler.ast;
@@ -71,12 +71,9 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(DesignatorFactor DesignatorFactor) { visit(); }
     public void visit(FactorTerm FactorTerm) { visit(); }
     public void visit(TermExpr TermExpr) { visit(); }
-    public void visit(ArrayElemAcessDesignatorLBracket ArrayElemAcessDesignatorLBracket) { visit(); }
     public void visit(MemberAccessDesignatorStart MemberAccessDesignatorStart) { visit(); }
-    public void visit(ArrayElemAccessDesignatorStart ArrayElemAccessDesignatorStart) { visit(); }
     public void visit(IdentDesignatorStart IdentDesignatorStart) { visit(); }
     public void visit(MemberAccessDesignator MemberAccessDesignator) { visit(); }
-    public void visit(ArrayElemAccessDesignator ArrayElemAccessDesignator) { visit(); }
     public void visit(IdentDesignator IdentDesignator) { visit(); }
     public void visit(DelimitedStatement DelimitedStatement) { visit(); }
     public void visit(PrintExprIntConstStatement PrintExprIntConstStatement) { visit(); }

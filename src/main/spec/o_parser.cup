@@ -138,7 +138,7 @@ nonterminal DoWhileStatementStart;
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Condition;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj DesignatorStart;
-nonterminal ArrayElemAcessDesignatorLBracket;
+
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Term;
 
@@ -359,14 +359,14 @@ Statement             ::= (AssignmentDesignatorStatement) Designator ASSIGN Erro
                        |  (DelimitedStatement) LBRACE StatementList RBRACE;                  
                        
 Designator            ::= (IdentDesignator) IDENT:ident
-                       |  (ArrayElemAccessDesignator) DesignatorStart ArrayElemAcessDesignatorLBracket Expr RBRACKET
+
                        |  (MemberAccessDesignator) DesignatorStart DOT IDENT:ident;
                              
 DesignatorStart       ::= (IdentDesignatorStart) IDENT:ident
-                       |  (ArrayElemAccessDesignatorStart) DesignatorStart ArrayElemAcessDesignatorLBracket Expr RBRACKET
+
                        |  (MemberAccessDesignatorStart) DesignatorStart DOT IDENT:ident;
 
-ArrayElemAcessDesignatorLBracket ::= (ArrayElemAcessDesignatorLBracket) LBRACKET;
+
 
 Expr                  ::= (TermExpr) Term;
 

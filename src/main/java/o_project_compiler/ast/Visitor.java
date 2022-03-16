@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2022 17:28:34
+// 16/2/2022 22:28:35
 
 
 package o_project_compiler.ast;
@@ -71,12 +71,9 @@ public interface Visitor {
     public void visit(DesignatorFactor DesignatorFactor);
     public void visit(FactorTerm FactorTerm);
     public void visit(TermExpr TermExpr);
-    public void visit(ArrayElemAcessDesignatorLBracket ArrayElemAcessDesignatorLBracket);
     public void visit(MemberAccessDesignatorStart MemberAccessDesignatorStart);
-    public void visit(ArrayElemAccessDesignatorStart ArrayElemAccessDesignatorStart);
     public void visit(IdentDesignatorStart IdentDesignatorStart);
     public void visit(MemberAccessDesignator MemberAccessDesignator);
-    public void visit(ArrayElemAccessDesignator ArrayElemAccessDesignator);
     public void visit(IdentDesignator IdentDesignator);
     public void visit(DelimitedStatement DelimitedStatement);
     public void visit(PrintExprIntConstStatement PrintExprIntConstStatement);
