@@ -465,30 +465,7 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.put(RuntimeError.VECTOR_OPERATION_ERROR.getCode());
     }
 
-    /**
-     * <p>
-     * U <code>rs.etf.pp1.mj.runtime.Code.buf</code> dodaje mašinski kod za
-     * MikroJava virtuelnu mašinu koji bi se dobio prevođenjem sledeće MikroJava
-     * funkcije:
-     * </p>
-     *
-     * <pre>
-     * int[] vecTimesScalar(int a[], int s) int la; int i; int result[]; {
-     *   <b>if</b> (a != null) {
-     *     la = len(a);
-     *     result = <b>new</b> int[la];
-     *     <b>if</b> (la > 0) {
-     *       i = 0;
-     *       <b>do</b> {
-     *         result[i] = a[i] * s;
-     *         i++;
-     *       } <b>while</b> (i < la);
-     *     }
-     *     <b>return</b> result[0];
-     *   }
-     * }
-     * </pre>
-     */
+
     public static void generateVecTimesScalarMethod() {
         Tab.vecTimesScalarMethod.setAdr(Code.pc);
 
@@ -551,30 +528,7 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.put(RuntimeError.VECTOR_OPERATION_ERROR.getCode());
     }
 
-    /**
-     * <p>
-     * U <code>rs.etf.pp1.mj.runtime.Code.buf</code> dodaje mašinski kod za
-     * MikroJava virtuelnu mašinu koji bi se dobio prevođenjem sledeće MikroJava
-     * funkcije:
-     * </p>
-     *
-     * <pre>
-     * int[] scalarTimesVec(int s, int a[]) int la; int i; int result[]; {
-     *   <b>if</b> (a != null) {
-     *     la = len(a);
-     *     result = <b>new</b> int[la];
-     *     <b>if</b> (la > 0) {
-     *       i = 0;
-     *       <b>do</b> {
-     *         result[i] = a[i] * s;
-     *         i++;
-     *       } <b>while</b> (i < la);
-     *     }
-     *     <b>return</b> result[0];
-     *   }
-     * }
-     * </pre>
-     */
+
     public static void generateScalarTimesVectorMethod() {
         Tab.scalarTimesVecMethod.setAdr(Code.pc);
 

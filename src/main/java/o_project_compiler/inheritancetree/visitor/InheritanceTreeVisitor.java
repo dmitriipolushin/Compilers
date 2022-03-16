@@ -6,6 +6,6 @@ import o_project_compiler.inheritancetree.InheritanceTreeNode;
 
 public interface InheritanceTreeVisitor {
 
-    public void visit(InheritanceTreeNode node);
+    void visit(InheritanceTreeNode node);
 
 }

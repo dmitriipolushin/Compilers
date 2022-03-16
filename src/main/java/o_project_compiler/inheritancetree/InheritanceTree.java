@@ -1,5 +1,4 @@
 
-
 package o_project_compiler.inheritancetree;
 
 import java.util.HashMap;
